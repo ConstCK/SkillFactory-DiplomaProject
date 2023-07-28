@@ -11,6 +11,7 @@ class Vehicle(models.Model):
 
     class Meta:
         verbose_name = 'Модель техники'
+        verbose_name_plural = 'Модели техники'
 
 
 class Engine(models.Model):
@@ -22,6 +23,7 @@ class Engine(models.Model):
 
     class Meta:
         verbose_name = 'Модель двигателя'
+        verbose_name_plural = 'Модели двигателя'
 
 
 class Transmission(models.Model):
@@ -33,6 +35,7 @@ class Transmission(models.Model):
 
     class Meta:
         verbose_name = 'Модель трансмиссии'
+        verbose_name_plural = 'Модели трансмиссии'
 
 
 class DrivingAxle(models.Model):
@@ -44,6 +47,7 @@ class DrivingAxle(models.Model):
 
     class Meta:
         verbose_name = 'Модель ведущего моста'
+        verbose_name_plural = 'Модели ведущего моста'
 
 
 class SteeringAxle(models.Model):
@@ -55,6 +59,7 @@ class SteeringAxle(models.Model):
 
     class Meta:
         verbose_name = 'Модель управляемого моста'
+        verbose_name_plural = 'Модели управляемого моста'
 
 
 class MaintenanceType(models.Model):
@@ -66,6 +71,7 @@ class MaintenanceType(models.Model):
 
     class Meta:
         verbose_name = 'Вид ТО'
+        verbose_name_plural = 'Виды ТО'
 
 
 class Breakage(models.Model):
@@ -77,6 +83,7 @@ class Breakage(models.Model):
 
     class Meta:
         verbose_name = 'Характер отказа'
+        verbose_name_plural = 'Характер отказа'
 
 
 class Repair(models.Model):
@@ -88,6 +95,7 @@ class Repair(models.Model):
 
     class Meta:
         verbose_name = 'Способ восстановления'
+        verbose_name_plural = 'Способы восстановления'
 
 
 class ServiceCompany(models.Model):
@@ -99,6 +107,7 @@ class ServiceCompany(models.Model):
 
     class Meta:
         verbose_name = 'Сервисная компания'
+        verbose_name_plural = 'Сервисные компании'
 
 
 class Car(models.Model):
@@ -118,15 +127,16 @@ class Car(models.Model):
     discharge_date = models.DateField(verbose_name='Дата отгрузки с завода')
     receiver = models.CharField(max_length=256, verbose_name='Грузополучатель')
     delivery_address = models.CharField(max_length=256, verbose_name='Адрес поставки')
-    vehicle_configuration = models.CharField(max_length=256, verbose_name='Комплектация')
+    vehicle_configuration = models.CharField(max_length=512, verbose_name='Комплектация')
     client = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Клиент')
     service_company = models.ForeignKey('ServiceCompany', on_delete=models.PROTECT, verbose_name='Сервисная компания')
 
     def __str__(self):
-        return f'Модель техники - {self.vehicle_model}'
+        return f'Погрузчик - {self.car_id}'
 
     class Meta:
         verbose_name = 'Машина'
+        verbose_name_plural = 'Машины'
         ordering = ['-discharge_date']
 
 
@@ -138,13 +148,14 @@ class Maintenance(models.Model):
     running_time = models.IntegerField(verbose_name='Наработка м/час')
     order_id = models.CharField(max_length=32, verbose_name='Номер заказ-наряда')
     # ??? auto_add_now
-    order_date = models.DateField(auto_now_add=True, verbose_name='Дата заказ-наряда')
+    order_date = models.DateField(verbose_name='Дата заказ-наряда')
 
     def __str__(self):
         return f'Техническое обслуживание {self.car_id} модели'
 
     class Meta:
         verbose_name = 'Техническое обслуживание'
+        verbose_name_plural = 'Техническое обслуживание'
         ordering = ['-maintenance_date']
 
 
@@ -158,7 +169,7 @@ class Complaint(models.Model):
     repairing_way = models.ForeignKey('Repair', on_delete=models.PROTECT, verbose_name='Способ восстановления')
     spares = models.CharField(max_length=256, verbose_name='Используемые запасные части')
     repair_date = models.DateField(verbose_name='Дата восстановления')
-    down_time = models.DateField(verbose_name='Время простоя')
+    down_time = models.IntegerField(verbose_name='Время простоя')
 
     def save(self, *args, **kwargs):
         self.down_time = (self.repair_date - self.breakage_date).days
@@ -168,5 +179,6 @@ class Complaint(models.Model):
         return f'Рекламации по {self.car_id} модели'
 
     class Meta:
-        verbose_name = 'Рекламации'
+        verbose_name = 'Рекламация'
+        verbose_name_plural = 'Рекламации'
         ordering = ['-breakage_date']

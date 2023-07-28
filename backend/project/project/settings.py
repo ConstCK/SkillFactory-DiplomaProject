@@ -45,11 +45,15 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'service.apps.ServiceConfig',
+    'corsheaders',
+    'rest_framework',
+    'drf_yasg',
 ]
 
 SITE_ID = 1
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -129,3 +133,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ACCOUNT_ADAPTER = 'project.adapter.NoNewUsersAccountAdapter'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': ['rest_framework.renderers.JSONRenderer',
+                                 'rest_framework.renderers.BrowsableAPIRenderer', ],
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissions']}
