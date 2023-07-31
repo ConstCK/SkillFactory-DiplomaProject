@@ -1,0 +1,10 @@
+.footer {
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-family: "PT Astra Font bold";
+    background-color: var(--color-1);
+    color: azure;
+    padding: 25px 20px;
+}

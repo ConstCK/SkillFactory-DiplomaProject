@@ -1,0 +1,37 @@
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info>* {
+    margin: 20px;
+}
+
+.auth-btn {
+    padding: 5px 15px;
+    background-color: var(--color-2);
+    box-shadow: 1px 2px black;
+    color: azure;
+    border: none;
+    border-radius: 5px;
+    font-family: "PT Astra Font regular", sans-serif;
+    transition: all 0.2s ease-in-out;
+
+}
+
+.auth-btn:active {
+    box-shadow: 2px 1px black;
+    color: black;
+}
+
+@media (min-width: 320px) and (max-width: 766px) {
+    .auth-btn {
+        padding: 5px 10px;
+        font-size: 0.6rem;
+        box-shadow: 0.5px 1px black;
+    }
+
+    .user-info>* {
+        margin: 3px;
+    }
+}
