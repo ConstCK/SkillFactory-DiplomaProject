@@ -28,16 +28,16 @@
     padding: 15px;
     font-size: 1rem;
     border-radius: 15px;
-    box-shadow: 1px 2px grey;
+    box-shadow: 1px 2px var(--color-1);
 }
 
 .login-btn {
     padding: 5px 15px;
     background-color: var(--color-2);
-    box-shadow: 1px 2px black;
+    box-shadow: 1px 2px var(--color-1);
     color: azure;
     border: none;
-    border-radius: 5px;
+    border-radius: 2px;
     font-family: "PT Astra Font regular", sans-serif;
     font-size: 1.3rem;
     margin: 10px;
@@ -46,8 +46,8 @@
 }
 
 .login-btn:active {
-    box-shadow: 2px 1px black;
-    color: black;
+    box-shadow: 2px 1px var(--color-1);
+    color: var(--color-1);
 }
 
 @media (min-width: 320px) and (max-width: 766px) {

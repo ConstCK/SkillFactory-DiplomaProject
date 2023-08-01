@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import "../styles/AuthPage.css";
 import { useNavigate } from "react-router-dom";
+import { login } from "../api/dataService.js";
 
 const AuthPage = () => {
   const navigate = useNavigate();
-  const [username, setUserName] = useState();
+  const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
 
   const loginHandle = () => {
+    login(userName, password);
     navigate("/");
   };
   return (

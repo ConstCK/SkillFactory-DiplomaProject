@@ -1,29 +1,28 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import "../styles/SearchPanel.css";
 import { getFilteredCars } from "../api/dataService.js";
+import resultContext from "../context/createContext.js";
 
 const SearchPanel = () => {
   const ref = useRef();
   const [vehicleNumber, setVehicleNumber] = useState("");
-  const [filteredData, setfilteredData] = useState([]);
-  const [searchMessage, setSearchMessage] = useState("");
-  const [data, setData] = useState();
+  // const [filteredData, setFilteredData] = useContext(resultContext);
+  const [filteredData, setFilteredData] = useState({});
+  const [resultMessage, setresultmessage] = useState(
+    "Укажите номер запрашиваемой техники..."
+  );
 
-  useEffect(() => {
-    console.log("data from effect", filteredData);
-  }, [filteredData]);
+  useEffect(() => {}, []);
 
-  const searchHandle = async () => {
-    await getFilteredCars(vehicleNumber, setfilteredData);
+  const searchHandle = async (e) => {
+    console.log("123");
+    e.preventDefault();
+    await getFilteredCars(vehicleNumber, setFilteredData);
     ref.current.value = "";
     setVehicleNumber("");
-    if (filteredData.length == 0) {
-      setSearchMessage(
-        `Данных о машине номером ${vehicleNumber} нет в системе`
-      );
-    }
   };
+  console.log(filteredData);
 
   return (
     <div className="search-panel">
@@ -39,19 +38,19 @@ const SearchPanel = () => {
           name="searchField"
           className="search-field"
           type="text"
-          placeholder="Введите заводской номер "
+          placeholder="Введите заводской номер..."
           onChange={(e) => {
             setVehicleNumber(e.target.value);
           }}
         ></input>
-        <button onClick={searchHandle} className="search-btn" type="button">
+        <button onClick={searchHandle} className="search-btn" type="submit">
           Поиск
         </button>
       </form>
-      <div className="result-title">Результат поиска:</div>
-      <div className="result-content">
+      <h2 className="result-title">Результат поиска:</h2>
+      <h2 className="result-content">
         Информация о комплектации и технических характеристиках Вашей модели
-      </div>
+      </h2>
       <table className="result-table">
         <thead>
           <tr>
@@ -68,26 +67,48 @@ const SearchPanel = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredData.length > 0 ? (
-            filteredData.map((el) => {
-              return (
-                <tr key={el.id}>
-                  <td>{el.car_id}</td>
-                  <td>{el.vehicle_model_details}</td>
-                  <td>{el.engine_model_details}</td>
-                  <td>{el.engine_id}</td>
-                  <td>{el.transmission_model_details}</td>
-                  <td>{el.transmission_id}</td>
-                  <td>{el.driving_axle_model_details}</td>
-                  <td>{el.driving_axle_id}</td>
-                  <td>{el.steering_axle_model_details}</td>
-                  <td>{el.steering_axle_id}</td>
-                </tr>
-              );
-            })
+          {filteredData ? (
+            <tr>
+              <td>{filteredData.car_id}</td>
+              <td>
+                <Link to={`details/vehicles/${filteredData.vehicle_model}`}>
+                  {filteredData.vehicle_model_details}
+                </Link>
+              </td>
+              <td>
+                <Link to={`details/engines/${filteredData.engine_model}`}>
+                  {filteredData.engine_model_details}
+                </Link>
+              </td>
+              <td>{filteredData.engine_id}</td>
+              <td>
+                <Link
+                  to={`details/transmissions/${filteredData.transmission_model}`}
+                >
+                  {filteredData.transmission_model_details}
+                </Link>
+              </td>
+              <td>{filteredData.transmission_id}</td>
+              <td>
+                <Link
+                  to={`details/driving-axles/${filteredData.driving_axle_model}`}
+                >
+                  {filteredData.driving_axle_model_details}
+                </Link>
+              </td>
+              <td>{filteredData.driving_axle_id}</td>
+              <td>
+                <Link
+                  to={`details/steering-axles/${filteredData.steering_axle_model}`}
+                >
+                  {filteredData.steering_axle_model_details}
+                </Link>
+              </td>
+              <td>{filteredData.steering_axle_id}</td>
+            </tr>
           ) : (
             <tr className="no-result">
-              <td colSpan={10}>{searchMessage}</td>
+              <td colSpan={10}>{resultMessage}</td>
             </tr>
           )}
         </tbody>

@@ -33,5 +33,6 @@
       "@babel/preset-env",
       "@babel/preset-react"
     ]
-  }
+  },
+  "proxy": "http://localhost:8000"
 }
