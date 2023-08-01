@@ -9,9 +9,13 @@ class Vehicle(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def verbose_name(self):
+        return self._meta.verbose_name.title()
+
     class Meta:
-        verbose_name = 'Модель техники'
-        verbose_name_plural = 'Модели техники'
+        verbose_name = 'Модель погрузчика'
+        verbose_name_plural = 'Модели погрузчика'
 
 
 class Engine(models.Model):
@@ -20,6 +24,9 @@ class Engine(models.Model):
 
     def __str__(self):
         return self.name
+    @property
+    def verbose_name(self):
+        return self._meta.verbose_name.title()
 
     class Meta:
         verbose_name = 'Модель двигателя'
@@ -33,6 +40,10 @@ class Transmission(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def verbose_name(self):
+        return self._meta.verbose_name.title()
+
     class Meta:
         verbose_name = 'Модель трансмиссии'
         verbose_name_plural = 'Модели трансмиссии'
@@ -45,6 +56,10 @@ class DrivingAxle(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def verbose_name(self):
+        return self._meta.verbose_name.title()
+
     class Meta:
         verbose_name = 'Модель ведущего моста'
         verbose_name_plural = 'Модели ведущего моста'
@@ -56,6 +71,10 @@ class SteeringAxle(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def verbose_name(self):
+        return self._meta.verbose_name.title()
 
     class Meta:
         verbose_name = 'Модель управляемого моста'
@@ -134,6 +153,26 @@ class Car(models.Model):
     def __str__(self):
         return f'Погрузчик - {self.car_id}'
 
+    @property
+    def vehicle_model_details(self):
+        return Vehicle.objects.get(name=self.vehicle_model).name
+
+    @property
+    def engine_model_details(self):
+        return Engine.objects.get(name=self.engine_model).name
+
+    @property
+    def transmission_model_details(self):
+        return Transmission.objects.get(name=self.transmission_model).name
+
+    @property
+    def driving_axle_model_details(self):
+        return DrivingAxle.objects.get(name=self.driving_axle_model).name
+
+    @property
+    def steering_axle_model_details(self):
+        return SteeringAxle.objects.get(name=self.steering_axle_model).name
+
     class Meta:
         verbose_name = 'Машина'
         verbose_name_plural = 'Машины'
@@ -147,7 +186,6 @@ class Maintenance(models.Model):
     maintenance_date = models.DateField(verbose_name='Дата проведения ТО')
     running_time = models.IntegerField(verbose_name='Наработка м/час')
     order_id = models.CharField(max_length=32, verbose_name='Номер заказ-наряда')
-    # ??? auto_add_now
     order_date = models.DateField(verbose_name='Дата заказ-наряда')
 
     def __str__(self):
