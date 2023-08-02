@@ -173,7 +173,13 @@ class Car(models.Model):
     @property
     def steering_axle_model_details(self):
         return SteeringAxle.objects.get(name=self.steering_axle_model)
+    @property
+    def client_details(self):
+        return User.objects.get(username=self.client)
 
+    @property
+    def service_company_details(self):
+        return ServiceCompany.objects.get(name=self.service_company)
     class Meta:
         verbose_name = 'Машина'
         verbose_name_plural = 'Машины'

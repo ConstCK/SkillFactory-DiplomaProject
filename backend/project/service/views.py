@@ -105,13 +105,44 @@ def my_login(request):
 @permission_classes([AllowAny])
 def get_definite_car(request):
     result = ''
-    print('my DATA!!!!', request.GET['car_id'])
     if request.GET['car_id']:
         try:
             instance = Car.objects.get(car_id=request.GET['car_id'])
             serializer = CarSerializer(instance)
             result = serializer.data
         except:
+            result = ''
+
+    return Response(result)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_clients_cars(request):
+    result = ''
+    if request.GET['id']:
+        try:
+            queryset = Car.objects.filter(client=request.GET['id'])
+            serializer = CarSerializer(queryset, many=True)
+            result = serializer.data
+        except:
+            print('error')
+            result = ''
+
+    return Response(result)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_service_companies_cars(request):
+    result = ''
+    if request.GET['id']:
+        try:
+            queryset = Car.objects.filter(service_company=request.GET['id'])
+            serializer = CarSerializer(queryset, many=True)
+            print('result', queryset)
+            result = serializer.data
+        except:
+            print('error')
             result = ''
 
     return Response(result)

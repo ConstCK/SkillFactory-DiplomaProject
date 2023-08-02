@@ -6,7 +6,7 @@ from .models import Car, Maintenance, Complaint, Vehicle, Engine, Transmission, 
 
 
 class VehicleSerializer(serializers.ModelSerializer):
-    verbose_name = serializers.CharField()
+    verbose_name = serializers.CharField(read_only=True)
 
     class Meta:
         model = Vehicle
@@ -20,7 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class EngineSerializer(serializers.ModelSerializer):
-    verbose_name = serializers.CharField()
+    verbose_name = serializers.CharField(read_only=True)
 
     class Meta:
         model = Engine
@@ -28,7 +28,7 @@ class EngineSerializer(serializers.ModelSerializer):
 
 
 class TransmissionSerializer(serializers.ModelSerializer):
-    verbose_name = serializers.CharField()
+    verbose_name = serializers.CharField(read_only=True)
 
     class Meta:
         model = Transmission
@@ -36,7 +36,7 @@ class TransmissionSerializer(serializers.ModelSerializer):
 
 
 class DrivingAxleSerializer(serializers.ModelSerializer):
-    verbose_name = serializers.CharField()
+    verbose_name = serializers.CharField(read_only=True)
 
     class Meta:
         model = DrivingAxle
@@ -44,7 +44,7 @@ class DrivingAxleSerializer(serializers.ModelSerializer):
 
 
 class SteeringAxleSerializer(serializers.ModelSerializer):
-    verbose_name = serializers.CharField()
+    verbose_name = serializers.CharField(read_only=True)
 
     class Meta:
         model = SteeringAxle
@@ -76,23 +76,23 @@ class ServiceCompanySerializer(serializers.ModelSerializer):
 
 
 class CarSerializer(serializers.ModelSerializer):
-    vehicle_model_details = serializers.CharField()
-    engine_model_details = serializers.CharField()
-    transmission_model_details = serializers.CharField()
-    driving_axle_model_details = serializers.CharField()
-    steering_axle_model_details = serializers.CharField()
+    vehicle_model_details = serializers.CharField(read_only=True)
+    engine_model_details = serializers.CharField(read_only=True)
+    transmission_model_details = serializers.CharField(read_only=True)
+    driving_axle_model_details = serializers.CharField(read_only=True)
+    steering_axle_model_details = serializers.CharField(read_only=True)
+    client_details = serializers.CharField(read_only=True)
+    service_company_details = serializers.CharField(read_only=True)
 
     class Meta:
         model = Car
         fields = '__all__'
-        read_only_fields = ['vehicle_model_details', 'engine_model_details', 'transmission_model_details',
-                            'driving_axle_model_details', 'steering_axle_model_details']
 
 
 class MaintenanceSerializer(serializers.ModelSerializer):
-    car_id_details = serializers.CharField()
-    service_company_details = serializers.CharField()
-    maintenance_type_details = serializers.CharField()
+    car_id_details = serializers.CharField(read_only=True)
+    service_company_details = serializers.CharField(read_only=True)
+    maintenance_type_details = serializers.CharField(read_only=True)
 
     class Meta:
         model = Maintenance
@@ -100,7 +100,7 @@ class MaintenanceSerializer(serializers.ModelSerializer):
 
 
 class ComplaintSerializer(serializers.ModelSerializer):
-    car_id_details = serializers.CharField()
+    car_id_details = serializers.CharField(read_only=True)
 
     class Meta:
         model = Complaint

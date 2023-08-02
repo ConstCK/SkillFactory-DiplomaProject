@@ -3,7 +3,7 @@ from rest_framework import routers
 
 from .views import CarViewSet, MaintenanceViewSet, ComplaintViewSet, UserInfoViewSet, VehicleViewSet, EngineViewSet, \
     TransmissionViewSet, DrivingAxleViewSet, SteeringAxleViewSet, MaintenanceTypeViewSet, BreakageViewSet, \
-    RepairViewSet, ServiceCompanyViewSet, my_login, get_definite_car
+    RepairViewSet, ServiceCompanyViewSet, my_login, get_definite_car, get_clients_cars, get_service_companies_cars
 
 router = routers.DefaultRouter()
 router.register('cars', CarViewSet)
@@ -24,5 +24,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
     path('api/user-login/', my_login),
-    path('api/definite-car/', get_definite_car)
+    path('api/definite-car/', get_definite_car),
+    path('api/clients-cars/', get_clients_cars),
+    path('api/service-companies-cars/', get_service_companies_cars),
 ]
