@@ -20,6 +20,7 @@ class CarViewSet(viewsets.ModelViewSet):
 
 
 class MaintenanceViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = MaintenanceSerializer
     queryset = Maintenance.objects.all()
 

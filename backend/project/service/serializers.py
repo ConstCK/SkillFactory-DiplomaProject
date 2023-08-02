@@ -16,8 +16,7 @@ class VehicleSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        # fields = '__all__'
-        fields = ['username', "groups"]
+        fields = ["id", 'username', "groups"]
 
 
 class EngineSerializer(serializers.ModelSerializer):
@@ -86,15 +85,23 @@ class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
         fields = '__all__'
+        read_only_fields = ['vehicle_model_details', 'engine_model_details', 'transmission_model_details',
+                            'driving_axle_model_details', 'steering_axle_model_details']
 
 
 class MaintenanceSerializer(serializers.ModelSerializer):
+    car_id_details = serializers.CharField()
+    service_company_details = serializers.CharField()
+    maintenance_type_details = serializers.CharField()
+
     class Meta:
         model = Maintenance
         fields = '__all__'
 
 
 class ComplaintSerializer(serializers.ModelSerializer):
+    car_id_details = serializers.CharField()
+
     class Meta:
         model = Complaint
         fields = '__all__'

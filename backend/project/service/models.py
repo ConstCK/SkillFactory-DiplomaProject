@@ -24,6 +24,7 @@ class Engine(models.Model):
 
     def __str__(self):
         return self.name
+
     @property
     def verbose_name(self):
         return self._meta.verbose_name.title()
@@ -155,23 +156,23 @@ class Car(models.Model):
 
     @property
     def vehicle_model_details(self):
-        return Vehicle.objects.get(name=self.vehicle_model).name
+        return Vehicle.objects.get(name=self.vehicle_model)
 
     @property
     def engine_model_details(self):
-        return Engine.objects.get(name=self.engine_model).name
+        return Engine.objects.get(name=self.engine_model)
 
     @property
     def transmission_model_details(self):
-        return Transmission.objects.get(name=self.transmission_model).name
+        return Transmission.objects.get(name=self.transmission_model)
 
     @property
     def driving_axle_model_details(self):
-        return DrivingAxle.objects.get(name=self.driving_axle_model).name
+        return DrivingAxle.objects.get(name=self.driving_axle_model)
 
     @property
     def steering_axle_model_details(self):
-        return SteeringAxle.objects.get(name=self.steering_axle_model).name
+        return SteeringAxle.objects.get(name=self.steering_axle_model)
 
     class Meta:
         verbose_name = 'Машина'
@@ -190,6 +191,18 @@ class Maintenance(models.Model):
 
     def __str__(self):
         return f'Техническое обслуживание {self.car_id} модели'
+
+    @property
+    def car_id_details(self):
+        return Car.objects.get(pk=self.pk).car_id
+
+    @property
+    def service_company_details(self):
+        return ServiceCompany.objects.get(name=self.service_company)
+
+    @property
+    def maintenance_type_details(self):
+        return MaintenanceType.objects.get(pk=self.pk)
 
     class Meta:
         verbose_name = 'Техническое обслуживание'
@@ -215,6 +228,10 @@ class Complaint(models.Model):
 
     def __str__(self):
         return f'Рекламации по {self.car_id} модели'
+
+    @property
+    def car_id_details(self):
+        return Car.objects.get(pk=self.pk).car_id
 
     class Meta:
         verbose_name = 'Рекламация'
