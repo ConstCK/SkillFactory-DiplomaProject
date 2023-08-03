@@ -22,6 +22,7 @@ a:hover,
 a:visited {
     text-decoration: none;
     cursor: pointer;
+    color: var(--color-2);
 }
 
 button {

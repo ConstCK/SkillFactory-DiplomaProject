@@ -3,19 +3,22 @@ import "../styles/MainPage.css";
 import InfoPanel from "../components/InfoPanel.jsx";
 import SearchPanel from "../components/SearchPanel.jsx";
 import resultContext from "../context/createContext";
-import { getLimitedCars } from "../api/dataService.js";
+import { useLocation } from "react-router-dom";
 
 function MainPage() {
-  const [isAuth, setIsAuth] = useState(localStorage.getItem("user"));
+  const location = useLocation();
+  const [isAuth, setIsAuth] = useContext(resultContext);
   const [limitedData, setLimitedData] = useContext(resultContext);
 
   useEffect(() => {
-    // localStorage.setItem("user", "user");
     setIsAuth(localStorage.getItem("user"));
-    getLimitedCars(setLimitedData);
-  }, []);
+  }, [isAuth]);
 
-  return <main>{isAuth ? <InfoPanel /> : <SearchPanel />}</main>;
+  return (
+    <main className="main-page">
+      {isAuth ? <InfoPanel /> : <SearchPanel />}
+    </main>
+  );
 }
 
 export default MainPage;

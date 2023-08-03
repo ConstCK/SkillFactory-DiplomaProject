@@ -131,15 +131,86 @@ def get_clients_cars(request):
 
     return Response(result)
 
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_service_companies_cars(request):
     result = ''
+    if request.GET['name']:
+        try:
+            instance = ServiceCompany.objects.get(login_nickname=request.GET['name'])
+            queryset = Car.objects.filter(service_company=instance)
+            serializer = CarSerializer(queryset, many=True)
+            result = serializer.data
+        except:
+            print('error')
+            result = ''
+
+    return Response(result)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_clients_maintenance(request):
+    result = ''
     if request.GET['id']:
         try:
-            queryset = Car.objects.filter(service_company=request.GET['id'])
-            serializer = CarSerializer(queryset, many=True)
-            print('result', queryset)
+            cars = Car.objects.filter(client=request.GET['id'])
+            queryset = Maintenance.objects.filter(car_id__in=cars)
+            print('queryset', queryset)
+            print('cars', cars)
+            serializer = MaintenanceSerializer(queryset, many=True)
+            result = serializer.data
+        except:
+            print('error')
+            result = ''
+
+    return Response(result)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_service_companies_maintenance(request):
+    result = ''
+    if request.GET['name']:
+        try:
+            instance = ServiceCompany.objects.get(login_nickname=request.GET['name'])
+            queryset = Maintenance.objects.filter(service_company=instance)
+            serializer = MaintenanceSerializer(queryset, many=True)
+            result = serializer.data
+        except:
+            print('error')
+            result = ''
+
+    return Response(result)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_clients_complaints(request):
+    result = ''
+    if request.GET['id']:
+        try:
+            cars = Car.objects.filter(client=request.GET['id'])
+            queryset = Complaint.objects.filter(car_id__in=cars)
+            serializer = ComplaintSerializer(queryset, many=True)
+            result = serializer.data
+        except:
+            print('error')
+            result = ''
+
+    return Response(result)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_service_companies_complaints(request):
+    result = ''
+    if request.GET['name']:
+        try:
+            instance = ServiceCompany.objects.get(login_nickname=request.GET['name'])
+            queryset = Complaint.objects.filter(service_company=instance)
+            serializer = ComplaintSerializer(queryset, many=True)
             result = serializer.data
         except:
             print('error')

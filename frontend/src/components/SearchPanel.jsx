@@ -1,28 +1,25 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/SearchPanel.css";
 import { getFilteredCars } from "../api/dataService.js";
-import resultContext from "../context/createContext.js";
 
 const SearchPanel = () => {
   const ref = useRef();
   const [vehicleNumber, setVehicleNumber] = useState("");
-  // const [filteredData, setFilteredData] = useContext(resultContext);
-  const [filteredData, setFilteredData] = useState({});
-  const [resultMessage, setresultmessage] = useState(
+  const [filteredData, setFilteredData] = useState();
+  const [resultMessage, setResultMessage] = useState(
     "Укажите номер запрашиваемой техники..."
   );
 
-  useEffect(() => {}, []);
-
   const searchHandle = async (e) => {
-    console.log("123");
     e.preventDefault();
     await getFilteredCars(vehicleNumber, setFilteredData);
+    if (!filteredData) {
+      setResultMessage("Данные об указанной технике отсутствуют");
+    }
     ref.current.value = "";
     setVehicleNumber("");
   };
-  console.log(filteredData);
 
   return (
     <div className="search-panel">
@@ -51,7 +48,7 @@ const SearchPanel = () => {
       <h2 className="result-content">
         Информация о комплектации и технических характеристиках Вашей модели
       </h2>
-      <table className="result-table">
+      <table className="search-result-table">
         <thead>
           <tr>
             <th>Зав. № машины</th>

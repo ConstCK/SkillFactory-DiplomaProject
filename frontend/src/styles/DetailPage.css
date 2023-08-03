@@ -39,7 +39,6 @@
     .details-description {
         font-size: 0.8rem;
     }
-
 }
 
 @media (min-width: 320px) and (max-width: 766px) {
@@ -57,5 +56,4 @@
     .details-description {
         font-size: 0.8rem;
     }
-
 }

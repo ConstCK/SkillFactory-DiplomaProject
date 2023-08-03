@@ -17,7 +17,7 @@ const Header = () => {
             <img className="logo-image" src={Logo2} alt="logotupe image" />
           </div>
         </Link>
-        <div className="desktop-container">
+        <div className="desktop-header-container">
           <Contacts />
         </div>
         <Auth />

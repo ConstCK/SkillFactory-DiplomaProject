@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/Constacts.css";
+import "../styles/Contacts.css";
 import PhoneIcon from "../assets/images/Telephone-icon.png";
 import TelegramIcon from "../assets/images/Telegram-icon.png";
 

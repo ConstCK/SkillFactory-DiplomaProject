@@ -101,6 +101,9 @@ class MaintenanceSerializer(serializers.ModelSerializer):
 
 class ComplaintSerializer(serializers.ModelSerializer):
     car_id_details = serializers.CharField(read_only=True)
+    service_company_details = serializers.CharField(read_only=True)
+    breakage_type_details = serializers.CharField(read_only=True)
+    repairing_way_details = serializers.CharField(read_only=True)
 
     class Meta:
         model = Complaint

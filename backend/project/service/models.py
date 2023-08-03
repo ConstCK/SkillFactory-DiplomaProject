@@ -121,6 +121,7 @@ class Repair(models.Model):
 class ServiceCompany(models.Model):
     name = models.CharField(max_length=256, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
+    login_nickname = models.CharField(max_length=64, blank=True, verbose_name='Логин для входа')
 
     def __str__(self):
         return self.name
@@ -173,6 +174,7 @@ class Car(models.Model):
     @property
     def steering_axle_model_details(self):
         return SteeringAxle.objects.get(name=self.steering_axle_model)
+
     @property
     def client_details(self):
         return User.objects.get(username=self.client)
@@ -180,6 +182,7 @@ class Car(models.Model):
     @property
     def service_company_details(self):
         return ServiceCompany.objects.get(name=self.service_company)
+
     class Meta:
         verbose_name = 'Машина'
         verbose_name_plural = 'Машины'
@@ -195,20 +198,20 @@ class Maintenance(models.Model):
     order_id = models.CharField(max_length=32, verbose_name='Номер заказ-наряда')
     order_date = models.DateField(verbose_name='Дата заказ-наряда')
 
-    def __str__(self):
-        return f'Техническое обслуживание {self.car_id} модели'
+    # def __str__(self):
+    #     return f'Техническое обслуживание {self.car_id} модели'
 
     @property
     def car_id_details(self):
-        return Car.objects.get(pk=self.pk).car_id
+        return self.car_id
 
     @property
     def service_company_details(self):
-        return ServiceCompany.objects.get(name=self.service_company)
+        return self.service_company
 
     @property
     def maintenance_type_details(self):
-        return MaintenanceType.objects.get(pk=self.pk)
+        return self.maintenance_type
 
     class Meta:
         verbose_name = 'Техническое обслуживание'
@@ -224,7 +227,7 @@ class Complaint(models.Model):
     breakage_description = models.TextField(verbose_name='Описание отказа')
     running_time = models.IntegerField(verbose_name='Наработка м/час')
     repairing_way = models.ForeignKey('Repair', on_delete=models.PROTECT, verbose_name='Способ восстановления')
-    spares = models.CharField(max_length=256, verbose_name='Используемые запасные части')
+    spares = models.CharField(max_length=256, verbose_name='Используемые запасные части', blank=True)
     repair_date = models.DateField(verbose_name='Дата восстановления')
     down_time = models.IntegerField(verbose_name='Время простоя')
 
@@ -237,7 +240,19 @@ class Complaint(models.Model):
 
     @property
     def car_id_details(self):
-        return Car.objects.get(pk=self.pk).car_id
+        return self.car_id
+
+    @property
+    def service_company_details(self):
+        return self.service_company
+
+    @property
+    def breakage_type_details(self):
+        return self.breakage_type
+
+    @property
+    def repairing_way_details(self):
+        return self.repairing_way
 
     class Meta:
         verbose_name = 'Рекламация'

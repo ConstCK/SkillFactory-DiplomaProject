@@ -1,35 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/Auth.css";
+import resultContext from "../context/createContext.js";
 
 const Auth = () => {
-  const myLocation = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
-  const [isAuth, setIsAuth] = useState(false);
-  const [userName, setUser] = useState(localStorage.getItem("user"));
-  const [location, setLocation] = useState(myLocation.pathname);
+  const [isAuth, setIsAuth] = useContext(resultContext);
+  const [currentLocation, setCurrentLocation] = useState(location.pathname);
 
   useEffect(() => {
-    // localStorage.setItem("user", "IP_TRUDNIKOV");
-    // testApi("SuperManager", "user1234");
-    setLocation(myLocation.pathname);
-  }, [location, myLocation, isAuth]);
+    setCurrentLocation(location.pathname);
+  }, [location, currentLocation, isAuth]);
 
   const loginHandle = () => {
     navigate("auth");
   };
 
   const logoutHandle = () => {
-    localStorage.setItem("user", "");
-    setUser(null);
+    localStorage.clear();
     setIsAuth(false);
   };
 
   return (
     <div>
       {isAuth ? (
-        <div className="user-info">
-          <button onClick={logoutHandle} className="auth-btn">
+        <div className="header-user-info">
+          <button
+            onClick={logoutHandle}
+            className="auth-btn"
+            hidden={currentLocation == "/auth-error" ? true : false}
+          >
             Выйти
           </button>
         </div>
@@ -38,7 +39,11 @@ const Auth = () => {
           <button
             onClick={loginHandle}
             className={"auth-btn"}
-            hidden={location === "/auth" ? true : false}
+            hidden={
+              currentLocation == "/auth" || currentLocation == "/auth-error"
+                ? true
+                : false
+            }
           >
             Войти
           </button>

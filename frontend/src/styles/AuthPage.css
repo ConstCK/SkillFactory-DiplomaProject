@@ -14,6 +14,7 @@
 
 .input-label {
     font-size: 1.5rem;
+    margin-bottom: 10px;
 }
 
 .auth-form {
@@ -32,7 +33,7 @@
 }
 
 .login-btn {
-    padding: 5px 15px;
+    padding: 10px 30px;
     background-color: var(--color-2);
     box-shadow: 1px 2px var(--color-1);
     color: azure;
@@ -41,7 +42,7 @@
     font-family: "PT Astra Font regular", sans-serif;
     font-size: 1.3rem;
     margin: 10px;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
 
 }
 
@@ -60,6 +61,7 @@
 
     .input-label {
         font-size: 0.7rem;
+        margin-bottom: 5px;
     }
 
     .input-field {
