@@ -1,0 +1,54 @@
+.complaint-info-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.complaint-result-table {
+    font-size: 1rem;
+    text-align: center;
+    margin: 10px 20px;
+    width: 90vw;
+
+}
+
+.complaint-result-table th,
+.complaint-result-table td {
+    border: 2px var(--color-1) solid;
+    padding: 10px;
+    /* max-width: 85px; */
+}
+
+@media (min-width:992px) and (max-width: 1365px) {
+
+    .complaint-result-table th,
+    .complaint-result-table td {
+        font-size: 0.7rem;
+    }
+}
+
+@media (min-width: 767px) and (max-width: 991px) {
+    .complaint-result-table {
+        font-size: 0.6rem;
+        margin: 10px 10px;
+    }
+
+    .complaint-result-table th,
+    .complaint-result-table td {
+        border: 1px var(--color-1) solid;
+        padding: 5px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 766px) {
+    .complaint-result-table {
+        font-size: 0.25rem;
+        margin: 10px;
+    }
+
+    .complaint-result-table th,
+    .complaint-result-table td {
+        border: 1px var(--color-1) solid;
+        padding: 3px;
+    }
+}

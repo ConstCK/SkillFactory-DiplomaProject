@@ -29,6 +29,10 @@ button {
     cursor: pointer;
 }
 
+table {
+    border-collapse: collapse;
+}
+
 @media (min-width: 1366px) {
     body {
         font-size: 1.3rem;

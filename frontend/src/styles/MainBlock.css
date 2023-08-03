@@ -8,12 +8,12 @@
     font-size: 0.7rem;
     text-align: center;
     margin: 10px 20px;
+    width: 90vw;
 
 }
 
-
-.main-result-table td,
-th {
+.main-result-table th,
+.main-result-table td {
     border: 2px var(--color-1) solid;
     padding: 4px;
     /* max-width: 85px; */
@@ -21,8 +21,8 @@ th {
 
 @media (min-width:992px) and (max-width: 1365px) {
 
-    .main-result-table td,
-    th {
+    .main-result-table th,
+    .main-result-table td {
         font-size: 0.45rem;
         max-width: 85px;
     }
@@ -34,8 +34,8 @@ th {
         margin: 10px 10px;
     }
 
-    .main-result-table td,
-    th {
+    .main-result-table th,
+    .main-result-table td {
         border: 1px var(--color-1) solid;
         padding: 1px;
     }
@@ -47,8 +47,8 @@ th {
         margin: 10px;
     }
 
-    .main-result-table td,
-    th {
+    .main-result-table th,
+    .main-result-table td {
         border: 1px var(--color-1) solid;
         padding: 2px;
     }
