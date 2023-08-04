@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import "../styles/MainInfo.css";
 import MainBlock from "./MainBlock.jsx";
 import resultContext from "../context/createContext.js";
@@ -10,29 +10,52 @@ const MainInfo = () => {
   const [currentGroup, setCurrentGroup] = useState(
     localStorage.getItem("group")
   );
+  const activeStyle = { background: "red", color: "azure" };
+  const passiveStyle = { background: "white", color: "black" };
+  const mainRef = useRef();
+  const maintenanceRef = useRef();
+  const complaintRef = useRef();
 
   const handleMainInfo = () => {
-    console.log("1");
+    mainRef.current.className = "nav-btn active";
+    maintenanceRef.current.className = "nav-btn passive";
+    complaintRef.current.className = "nav-btn passive";
     setCurrentDataType(1);
   };
   const handleMaintenanceInfo = () => {
-    console.log("2");
+    mainRef.current.className = "nav-btn passive";
+    maintenanceRef.current.className = "nav-btn active";
+    complaintRef.current.className = "nav-btn passive";
     setCurrentDataType(2);
   };
   const handleComplaintInfo = () => {
-    console.log("3");
+    mainRef.current.className = "nav-btn passive";
+    maintenanceRef.current.className = "nav-btn passive";
+    complaintRef.current.className = "nav-btn active";
     setCurrentDataType(3);
   };
   return (
     <div className="main-info">
       <div className="navigation-bar">
-        <button onClick={handleMainInfo} className="nav-btn">
+        <button
+          ref={mainRef}
+          onClick={handleMainInfo}
+          className="nav-btn active"
+        >
           Общая информация
         </button>
-        <button onClick={handleMaintenanceInfo} className="nav-btn">
+        <button
+          ref={maintenanceRef}
+          onClick={handleMaintenanceInfo}
+          className="nav-btn"
+        >
           ТО
         </button>
-        <button onClick={handleComplaintInfo} className="nav-btn">
+        <button
+          ref={complaintRef}
+          onClick={handleComplaintInfo}
+          className="nav-btn"
+        >
           Рекламации
         </button>
       </div>

@@ -157,8 +157,6 @@ def get_clients_maintenance(request):
         try:
             cars = Car.objects.filter(client=request.GET['id'])
             queryset = Maintenance.objects.filter(car_id__in=cars)
-            print('queryset', queryset)
-            print('cars', cars)
             serializer = MaintenanceSerializer(queryset, many=True)
             result = serializer.data
         except:
