@@ -5,18 +5,18 @@ from .models import Car, Maintenance, Complaint, Vehicle, Engine, Transmission, 
     MaintenanceType, Breakage, Repair, ServiceCompany
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", 'username', "groups"]
+
+
 class VehicleSerializer(serializers.ModelSerializer):
     verbose_name = serializers.CharField(read_only=True)
 
     class Meta:
         model = Vehicle
         fields = '__all__'
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ["id", 'username', "groups"]
 
 
 class EngineSerializer(serializers.ModelSerializer):
@@ -76,13 +76,13 @@ class ServiceCompanySerializer(serializers.ModelSerializer):
 
 
 class CarSerializer(serializers.ModelSerializer):
-    vehicle_model_details = serializers.CharField(read_only=True)
-    engine_model_details = serializers.CharField(read_only=True)
-    transmission_model_details = serializers.CharField(read_only=True)
-    driving_axle_model_details = serializers.CharField(read_only=True)
-    steering_axle_model_details = serializers.CharField(read_only=True)
-    client_details = serializers.CharField(read_only=True)
-    service_company_details = serializers.CharField(read_only=True)
+    vehicle_model_info = VehicleSerializer(read_only=True, source="vehicle_model")
+    engine_model_info = EngineSerializer(read_only=True, source="engine_model")
+    transmission_model_info = TransmissionSerializer(read_only=True, source="transmission_model")
+    driving_axle_model_info = DrivingAxleSerializer(read_only=True, source="driving_axle_model")
+    steering_axle_model_info = SteeringAxleSerializer(read_only=True, source="steering_axle_model")
+    client_info = UserSerializer(read_only=True, source="client")
+    service_company_info = ServiceCompanySerializer(read_only=True, source="service_company")
 
     class Meta:
         model = Car
@@ -91,8 +91,8 @@ class CarSerializer(serializers.ModelSerializer):
 
 class MaintenanceSerializer(serializers.ModelSerializer):
     car_id_details = serializers.CharField(read_only=True)
-    service_company_details = serializers.CharField(read_only=True)
-    maintenance_type_details = serializers.CharField(read_only=True)
+    service_company_info = ServiceCompanySerializer(read_only=True, source="service_company")
+    maintenance_type_info = MaintenanceTypeSerializer(read_only=True, source="maintenance_type")
 
     class Meta:
         model = Maintenance
@@ -101,9 +101,9 @@ class MaintenanceSerializer(serializers.ModelSerializer):
 
 class ComplaintSerializer(serializers.ModelSerializer):
     car_id_details = serializers.CharField(read_only=True)
-    service_company_details = serializers.CharField(read_only=True)
-    breakage_type_details = serializers.CharField(read_only=True)
-    repairing_way_details = serializers.CharField(read_only=True)
+    service_company_info = ServiceCompanySerializer(read_only=True, source="service_company")
+    breakage_type_info = BreakageSerializer(read_only=True, source="breakage_type")
+    repairing_way_info = RepairSerializer(read_only=True, source="repairing_way")
 
     class Meta:
         model = Complaint

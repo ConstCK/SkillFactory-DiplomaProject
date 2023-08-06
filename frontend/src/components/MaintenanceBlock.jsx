@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/MaintenanceBlock.css";
 import {
   getAllMaintenance,
@@ -8,6 +8,7 @@ import {
 } from "../api/dataService.js";
 
 const MaintenanceBlock = ({ group }) => {
+  const navigate = useNavigate();
   const [currentData, setCurrentData] = useState([]);
   const [userName, setUserName] = useState(localStorage.getItem("user"));
   const [password, setPassword] = useState(localStorage.getItem("password"));
@@ -23,6 +24,9 @@ const MaintenanceBlock = ({ group }) => {
     }
   }, []);
 
+  const handleAddMaintenance = () => {
+    navigate("add-maintenance");
+  };
   return (
     <div className="maintenance-info-block">
       <table className="maintenance-result-table">
@@ -46,7 +50,7 @@ const MaintenanceBlock = ({ group }) => {
                   <Link
                     to={`details/maintenance-types/${element.maintenance_type}`}
                   >
-                    {element.maintenance_type_details}
+                    {element.maintenance_type_info.name}
                   </Link>
                 </td>
                 <td>{element.maintenance_date}</td>
@@ -57,7 +61,7 @@ const MaintenanceBlock = ({ group }) => {
                   <Link
                     to={`details/service-companies/${element.service_company}`}
                   >
-                    {element.service_company_details}
+                    {element.service_company_info.name}
                   </Link>
                 </td>
               </tr>
@@ -65,6 +69,9 @@ const MaintenanceBlock = ({ group }) => {
           })}
         </tbody>
       </table>
+      <button onClick={handleAddMaintenance} className="add-maintenance-btn">
+        Добавить данные о ТО
+      </button>
     </div>
   );
 };

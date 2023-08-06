@@ -132,18 +132,18 @@ class ServiceCompany(models.Model):
 
 
 class Car(models.Model):
-    car_id = models.CharField(max_length=32, verbose_name='Зав. № машины')
+    car_id = models.CharField(max_length=32, unique=True, verbose_name='Зав. № машины')
     vehicle_model = models.ForeignKey('Vehicle', on_delete=models.PROTECT, verbose_name='Модель техники')
     engine_model = models.ForeignKey('Engine', on_delete=models.PROTECT, verbose_name='Модель двигателя')
-    engine_id = models.CharField(max_length=32, verbose_name='Зав. № двигателя')
+    engine_id = models.CharField(max_length=32, unique=True, verbose_name='Зав. № двигателя')
     transmission_model = models.ForeignKey('Transmission', on_delete=models.PROTECT, verbose_name='Модель трансмиссии')
-    transmission_id = models.CharField(max_length=32, verbose_name='Зав. № трансмиссии')
+    transmission_id = models.CharField(max_length=32, unique=True, verbose_name='Зав. № трансмиссии')
     driving_axle_model = models.ForeignKey('DrivingAxle', on_delete=models.PROTECT,
                                            verbose_name='Модель ведущего моста')
-    driving_axle_id = models.CharField(max_length=32, verbose_name='Зав. № ведущего моста')
+    driving_axle_id = models.CharField(max_length=32, unique=True, verbose_name='Зав. № ведущего моста')
     steering_axle_model = models.ForeignKey('SteeringAxle', on_delete=models.PROTECT,
                                             verbose_name='Модель управляемого моста')
-    steering_axle_id = models.CharField(max_length=32, verbose_name='Зав. № управляемого моста')
+    steering_axle_id = models.CharField(max_length=32, unique=True, verbose_name='Зав. № управляемого моста')
     delivery_contract = models.CharField(max_length=256, verbose_name='Договор поставки №, дата')
     discharge_date = models.DateField(verbose_name='Дата отгрузки с завода')
     receiver = models.CharField(max_length=256, verbose_name='Грузополучатель')
@@ -154,34 +154,6 @@ class Car(models.Model):
 
     def __str__(self):
         return f'Погрузчик - {self.car_id}'
-
-    @property
-    def vehicle_model_details(self):
-        return Vehicle.objects.get(name=self.vehicle_model)
-
-    @property
-    def engine_model_details(self):
-        return Engine.objects.get(name=self.engine_model)
-
-    @property
-    def transmission_model_details(self):
-        return Transmission.objects.get(name=self.transmission_model)
-
-    @property
-    def driving_axle_model_details(self):
-        return DrivingAxle.objects.get(name=self.driving_axle_model)
-
-    @property
-    def steering_axle_model_details(self):
-        return SteeringAxle.objects.get(name=self.steering_axle_model)
-
-    @property
-    def client_details(self):
-        return User.objects.get(username=self.client)
-
-    @property
-    def service_company_details(self):
-        return ServiceCompany.objects.get(name=self.service_company)
 
     class Meta:
         verbose_name = 'Машина'
@@ -195,23 +167,15 @@ class Maintenance(models.Model):
     maintenance_type = models.ForeignKey('MaintenanceType', on_delete=models.PROTECT, verbose_name='Вид ТО')
     maintenance_date = models.DateField(verbose_name='Дата проведения ТО')
     running_time = models.IntegerField(verbose_name='Наработка м/час')
-    order_id = models.CharField(max_length=32, verbose_name='Номер заказ-наряда')
+    order_id = models.CharField(max_length=32, unique=True, verbose_name='Номер заказ-наряда')
     order_date = models.DateField(verbose_name='Дата заказ-наряда')
 
-    # def __str__(self):
-    #     return f'Техническое обслуживание {self.car_id} модели'
+    def __str__(self):
+        return f'Техническое обслуживание {self.car_id} модели'
 
     @property
     def car_id_details(self):
         return self.car_id
-
-    @property
-    def service_company_details(self):
-        return self.service_company
-
-    @property
-    def maintenance_type_details(self):
-        return self.maintenance_type
 
     class Meta:
         verbose_name = 'Техническое обслуживание'
@@ -241,18 +205,6 @@ class Complaint(models.Model):
     @property
     def car_id_details(self):
         return self.car_id
-
-    @property
-    def service_company_details(self):
-        return self.service_company
-
-    @property
-    def breakage_type_details(self):
-        return self.breakage_type
-
-    @property
-    def repairing_way_details(self):
-        return self.repairing_way
 
     class Meta:
         verbose_name = 'Рекламация'

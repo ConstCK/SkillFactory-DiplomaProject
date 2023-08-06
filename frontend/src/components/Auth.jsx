@@ -20,6 +20,7 @@ const Auth = () => {
   const logoutHandle = () => {
     localStorage.clear();
     setIsAuth(false);
+    navigate("/");
   };
 
   return (

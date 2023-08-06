@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 80vh;
+    /* min-height: 90vh; */
 }
 
 .details-title {
@@ -24,6 +24,24 @@
     padding: 5px;
 }
 
+.details-return-btn {
+    margin: 20px;
+    padding: 15px 40px;
+    background-color: var(--color-2);
+    box-shadow: 1px 2px var(--color-1);
+    color: azure;
+    border: none;
+    border-radius: 2px;
+    font-family: "PT Astra Font regular", sans-serif;
+    font-size: 1.1rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.details-return-btn:active {
+    box-shadow: 2px 1px var(--color-1);
+    color: var(--color-1);
+}
+
 @media (min-width: 767px) and (max-width: 991px) {
 
     .details-title,
@@ -39,13 +57,17 @@
     .details-description {
         font-size: 0.8rem;
     }
+
+    .details-return-btn {
+        padding: 12px 35px;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 766px) {
 
     .details-title,
     .details-description-title {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .details-name,
@@ -55,5 +77,9 @@
 
     .details-description {
         font-size: 0.8rem;
+    }
+
+    .details-return-btn {
+        padding: 10px 20px;
     }
 }

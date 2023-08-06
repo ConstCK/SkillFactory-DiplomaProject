@@ -33,6 +33,13 @@ table {
     border-collapse: collapse;
 }
 
+.root-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 @media (min-width: 1366px) {
     body {
         font-size: 1.3rem;
@@ -41,7 +48,7 @@ table {
 
 @media (min-width:992px) and (max-width: 1365px) {
     body {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 }
 

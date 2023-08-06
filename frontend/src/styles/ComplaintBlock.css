@@ -1,5 +1,6 @@
 .complaint-info-block {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -7,16 +8,33 @@
 .complaint-result-table {
     font-size: 1rem;
     text-align: center;
-    margin: 10px 20px;
+    margin: 20px 20px;
     width: 90vw;
 
+}
+
+.add-complaint-btn {
+    margin: 20px;
+    padding: 10px 40px;
+    background-color: var(--color-2);
+    box-shadow: 1px 2px var(--color-1);
+    color: azure;
+    border: none;
+    border-radius: 2px;
+    font-family: "PT Astra Font regular", sans-serif;
+    font-size: 1.1rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.add-complaint-btn:active {
+    box-shadow: 2px 1px var(--color-1);
+    color: var(--color-1);
 }
 
 .complaint-result-table th,
 .complaint-result-table td {
     border: 2px var(--color-1) solid;
     padding: 10px;
-    /* max-width: 85px; */
 }
 
 @media (min-width:992px) and (max-width: 1365px) {
@@ -50,5 +68,9 @@
     .complaint-result-table td {
         border: 1px var(--color-1) solid;
         padding: 3px;
+    }
+
+    .add-complaint-btn {
+        font-size: 0.5rem;
     }
 }

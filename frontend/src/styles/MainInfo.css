@@ -6,7 +6,7 @@
 
 .nav-btn {
     box-shadow: 3px 2px var(--color-1);
-    border-radius: 15px 15px 0 0;
+    border-radius: 50% 5% 0 0;
     color: azure;
     margin: 5px 15px;
     padding: 15px 30px;
@@ -15,13 +15,14 @@
 
 .nav-btn:active {
     box-shadow: 2px 3px var(--color-1);
-    border-radius: 20px 20px 0 0;
+    border-radius: 70% 25% 0 0;
     color: var(--color-1);
 }
 
 .active {
     background-color: var(--color-2);
-    color: deepskyblue;
+    color: var(--color-3);
+    font-family: "PT Astra Font bold";
 }
 
 .passive {
@@ -35,7 +36,6 @@
         font-size: 0.8rem;
         margin: 5px 10px;
         padding: 10px 20px;
-        border-radius: 10px 10px 0 0;
     }
 }
 
@@ -44,6 +44,5 @@
         font-size: 0.5rem;
         margin: 5px 10px;
         padding: 5px 10px;
-        border-radius: 7px 7px 0 0;
     }
 }

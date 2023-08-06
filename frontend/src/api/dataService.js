@@ -4,7 +4,7 @@ import {
   BASE_URL,
   LOGIN_URL,
   ALL_CARS_URL,
-  DEFINITE_CAR,
+  DEFINITE_CAR_URL,
   CLIENTS_CARS_URL,
   SERVICE_COMPANIES_CARS_URL,
   ALL_MAINTENANCE_URL,
@@ -13,6 +13,16 @@ import {
   ALL_COMPLAINTS_URL,
   CLIENTS_COMPLAINTS_URL,
   SERVICE_COMPANIES_COMPLAINTS_URL,
+  MAINTENANCE_TYPES_URL,
+  ALL_SERVICE_COMPANIES_URL,
+  BREAKAGES_URL,
+  REPAIR_WAY_URL,
+  VEHICLES_URL,
+  ENGINES_URL,
+  TRANSMISSIONS_URL,
+  DRIVING_AXLES_URL,
+  STEERING_AXLES_URL,
+  ALL_CLIENTS_URL,
 } from "../utils/constants";
 
 const login = (userName, password, setter, redirection) => {
@@ -40,6 +50,48 @@ const login = (userName, password, setter, redirection) => {
     .catch((error) => {
       console.log("Ошибка авторизации...", error);
       redirection("/auth-error");
+    });
+};
+
+const getServiceCompanyId = (userId) => {
+  return axios({
+    baseURL: BASE_URL,
+    url: `service-companies/${userId}/service-company-id`,
+    method: "get",
+  })
+    .then((response) => {
+      localStorage.setItem("serviceCompanyId", response.data);
+    })
+    .catch((error) =>
+      console.log("Ошибка получения данных о погрузчиках", error)
+    );
+};
+
+const getFilteredCars = (id, setter) => {
+  return axios({
+    baseURL: BASE_URL,
+    url: `cars/${id}/${DEFINITE_CAR_URL}`,
+    method: "get",
+  })
+    .then((response) => {
+      setter(response.data);
+    })
+    .catch((error) =>
+      console.log("Ошибка получения данных о погрузчиках", error)
+    );
+};
+
+const getAllClients = (setter) => {
+  return axios({
+    baseURL: BASE_URL,
+    url: ALL_CLIENTS_URL,
+    method: "get",
+  })
+    .then((response) => {
+      setter(response.data);
+    })
+    .catch((error) => {
+      console.log("Ошибка получения данных...", error);
     });
 };
 
@@ -95,23 +147,6 @@ const getServiceCompaniesCars = (userName, password, setter) => {
     );
 };
 
-const getFilteredCars = (id, setter) => {
-  return axios({
-    baseURL: BASE_URL,
-    url: DEFINITE_CAR,
-    method: "get",
-    params: {
-      car_id: id,
-    },
-  })
-    .then((response) => {
-      setter(response.data);
-    })
-    .catch((error) =>
-      console.log("Ошибка получения данных о погрузчиках", error)
-    );
-};
-
 const getAllMaintenance = (setter) => {
   return axios({
     baseURL: BASE_URL,
@@ -121,9 +156,7 @@ const getAllMaintenance = (setter) => {
     .then((response) => {
       setter(response.data);
     })
-    .catch((error) =>
-      console.log("Ошибка получения данных о погрузчиках", error)
-    );
+    .catch((error) => console.log("Ошибка получения данных о ТО", error));
 };
 
 const getClientsMaintenance = (userName, password, id, setter) => {
@@ -140,12 +173,9 @@ const getClientsMaintenance = (userName, password, id, setter) => {
     },
   })
     .then((response) => {
-      console.log(response);
       setter(response.data);
     })
-    .catch((error) =>
-      console.log("Ошибка получения данных о погрузчиках", error)
-    );
+    .catch((error) => console.log("Ошибка получения данных о ТО", error));
 };
 
 const getServiceCompaniesMaintenance = (userName, password, setter) => {
@@ -164,9 +194,7 @@ const getServiceCompaniesMaintenance = (userName, password, setter) => {
     .then((response) => {
       setter(response.data);
     })
-    .catch((error) =>
-      console.log("Ошибка получения данных о погрузчиках", error)
-    );
+    .catch((error) => console.log("Ошибка получения данных о ТО", error));
 };
 
 const getAllComplaints = (setter) => {
@@ -176,11 +204,10 @@ const getAllComplaints = (setter) => {
     method: "get",
   })
     .then((response) => {
-      console.log(response.data);
       setter(response.data);
     })
     .catch((error) =>
-      console.log("Ошибка получения данных о погрузчиках", error)
+      console.log("Ошибка получения данных о рекламациях", error)
     );
 };
 
@@ -201,7 +228,7 @@ const getClientsComplaints = (userName, password, id, setter) => {
       setter(response.data);
     })
     .catch((error) =>
-      console.log("Ошибка получения данных о погрузчиках", error)
+      console.log("Ошибка получения данных о рекламациях", error)
     );
 };
 
@@ -219,7 +246,6 @@ const getServiceCompaniesComplaints = (userName, password, setter) => {
     },
   })
     .then((response) => {
-      console.log(response);
       setter(response.data);
     })
     .catch((error) =>
@@ -241,17 +267,238 @@ const getDetails = (url, setter) => {
     );
 };
 
+const getMaintenanceTypes = async (setter) => {
+  return await axios({
+    baseURL: BASE_URL,
+    url: MAINTENANCE_TYPES_URL,
+    method: "get",
+  })
+    .then((response) => {
+      setter(response.data);
+    })
+    .catch((error) => {
+      console.log("Ошибка получения данных...", error);
+    });
+};
+
+const getAllServiceCompanies = async (setter) => {
+  return await axios({
+    baseURL: BASE_URL,
+    url: ALL_SERVICE_COMPANIES_URL,
+    method: "get",
+  })
+    .then((response) => {
+      setter(response.data);
+    })
+    .catch((error) => {
+      console.log("Ошибка получения данных...", error);
+    });
+};
+
+const getBreakagesList = (setter) => {
+  return axios({
+    baseURL: BASE_URL,
+    url: BREAKAGES_URL,
+    method: "get",
+  })
+    .then((response) => {
+      setter(response.data);
+    })
+    .catch((error) => {
+      console.log("Ошибка получения данных...", error);
+    });
+};
+
+const getRepairWaysList = (setter) => {
+  return axios({
+    baseURL: BASE_URL,
+    url: REPAIR_WAY_URL,
+    method: "get",
+  })
+    .then((response) => {
+      setter(response.data);
+    })
+    .catch((error) => {
+      console.log("Ошибка получения данных...", error);
+    });
+};
+
+const getVehicleList = (setter) => {
+  return axios({
+    baseURL: BASE_URL,
+    url: VEHICLES_URL,
+    method: "get",
+  })
+    .then((response) => {
+      setter(response.data);
+    })
+    .catch((error) => {
+      console.log("Ошибка получения данных...", error);
+    });
+};
+
+const getEngineList = (setter) => {
+  return axios({
+    baseURL: BASE_URL,
+    url: ENGINES_URL,
+    method: "get",
+  })
+    .then((response) => {
+      setter(response.data);
+    })
+    .catch((error) => {
+      console.log("Ошибка получения данных...", error);
+    });
+};
+
+const getTransmissionList = (setter) => {
+  return axios({
+    baseURL: BASE_URL,
+    url: TRANSMISSIONS_URL,
+    method: "get",
+  })
+    .then((response) => {
+      setter(response.data);
+    })
+    .catch((error) => {
+      console.log("Ошибка получения данных...", error);
+    });
+};
+
+const getDrivingAxleList = (setter) => {
+  return axios({
+    baseURL: BASE_URL,
+    url: DRIVING_AXLES_URL,
+    method: "get",
+  })
+    .then((response) => {
+      setter(response.data);
+    })
+    .catch((error) => {
+      console.log("Ошибка получения данных...", error);
+    });
+};
+
+const getSteeringAxleList = (setter) => {
+  return axios({
+    baseURL: BASE_URL,
+    url: STEERING_AXLES_URL,
+    method: "get",
+  })
+    .then((response) => {
+      setter(response.data);
+    })
+    .catch((error) => {
+      console.log("Ошибка получения данных...", error);
+    });
+};
+
+const postNewMaintenance = async (
+  user,
+  password,
+  group,
+  serviceCompanyId,
+  data
+) => {
+  if (group === "1") {
+    data.service_company = 4;
+  } else if (group === "2") {
+    data.service_company = serviceCompanyId;
+  }
+
+  return await axios({
+    baseURL: BASE_URL,
+    url: ALL_MAINTENANCE_URL,
+    method: "post",
+    data: data,
+    auth: {
+      username: user,
+      password: password,
+    },
+  })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log("Ошибка отправки данных...", error);
+    });
+};
+
+const postNewComplaint = async (
+  user,
+  password,
+  group,
+  serviceCompanyId,
+  data
+) => {
+  console.log(data);
+  if (group === "2") {
+    data.service_company = serviceCompanyId;
+  }
+  console.log(data);
+  return await axios({
+    baseURL: BASE_URL,
+    url: ALL_COMPLAINTS_URL,
+    method: "post",
+    data: data,
+    auth: {
+      username: user,
+      password: password,
+    },
+  })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log("Ошибка отправки данных...", error);
+    });
+};
+
+const postNewCar = async (user, password, data) => {
+  return await axios({
+    baseURL: BASE_URL,
+    url: ALL_CARS_URL,
+    method: "post",
+    data: data,
+    auth: {
+      username: user,
+      password: password,
+    },
+  })
+    .then((response) => {
+      console.log("newCar", response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log("Ошибка отправки данных...", error);
+    });
+};
+
 export {
   getFilteredCars,
   getAllCars,
+  getAllServiceCompanies,
+  getAllMaintenance,
+  getAllComplaints,
   getDetails,
   getClientsCars,
   getServiceCompaniesCars,
-  getAllMaintenance,
   getClientsMaintenance,
   getServiceCompaniesMaintenance,
-  getAllComplaints,
   getClientsComplaints,
   getServiceCompaniesComplaints,
+  getMaintenanceTypes,
+  getServiceCompanyId,
+  getBreakagesList,
+  getRepairWaysList,
+  getVehicleList,
+  getEngineList,
+  getTransmissionList,
+  getDrivingAxleList,
+  getSteeringAxleList,
+  getAllClients,
+  postNewMaintenance,
+  postNewComplaint,
+  postNewCar,
   login,
 };

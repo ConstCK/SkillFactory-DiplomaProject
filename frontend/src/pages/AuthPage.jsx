@@ -3,17 +3,20 @@ import "../styles/AuthPage.css";
 import { useNavigate } from "react-router-dom";
 import resultContext from "../context/createContext.js";
 import { login } from "../api/dataService.js";
+import { getServiceCompanyId } from "../api/dataService.js";
 
 const AuthPage = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
+  const [userId, setUserId] = useState(localStorage.getItem("id"));
   const [isAuth, setIsAuth] = useContext(resultContext);
 
   const loginHandle = (e) => {
     e.preventDefault();
     login(userName, password, setIsAuth, navigate);
   };
+
   return (
     <div className="authorization">
       <h1 className="auth-title">Страница авторизации</h1>

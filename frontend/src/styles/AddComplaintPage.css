@@ -1,0 +1,132 @@
+.complaint-adding-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.complaint-adding-title {
+    margin: 30px;
+}
+
+.complaint-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin: 10px 0;
+}
+
+.complaint-form>* {
+    width: 70%;
+    text-align: center;
+}
+
+
+.complaint-form label {
+    margin-top: 10px;
+    font-family: "PT Astra Font bold", sans-serif;
+}
+
+
+.complaint-form input,
+.complaint-form select {
+    margin: 5px 0;
+    padding: 10px 20px;
+}
+
+.complaint-form input:invalid,
+.complaint-form select:invalid {
+    border: 2px solid var(--color-2);
+}
+
+.submit-complaint-btn {
+    padding: 10px 30px;
+    background-color: var(--color-2);
+    box-shadow: 1px 2px var(--color-1);
+    color: azure;
+    border: none;
+    border-radius: 2px;
+    font-family: "PT Astra Font regular", sans-serif;
+    font-size: 1.1rem;
+    margin: 10px;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.submit-complaint-btn:active {
+    box-shadow: 2px 1px var(--color-1);
+    color: var(--color-1);
+}
+
+.submit-complaint-btn:disabled {
+    background-color: white;
+    border: 0.5px solid var(--color-1);
+    color: black;
+    box-shadow: none;
+}
+
+.add-complaint-return-btn {
+    margin: 20px;
+    padding: 10px 40px;
+    background-color: var(--color-2);
+    box-shadow: 1px 2px var(--color-1);
+    color: azure;
+    border: none;
+    border-radius: 2px;
+    font-family: "PT Astra Font regular", sans-serif;
+    font-size: 1.1rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.add-complaint-return-btn:active {
+    box-shadow: 2px 1px var(--color-1);
+    color: var(--color-1);
+}
+
+
+@media (min-width: 767px) and (max-width: 991px) {
+
+    .complaint-form input,
+    .complaint-form select {
+        font-size: 0.7rem;
+        padding: 8px 20px;
+    }
+
+    .complaint-form label {
+        font-size: 1rem;
+    }
+
+    .submit-complaint-btn {
+        font-size: 0.9rem;
+    }
+
+    .add-complaint-return-btn {
+        margin: 15px;
+        padding: 10px 30px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 766px) {
+
+    .complaint-form input,
+    .complaint-form select {
+        font-size: 0.5rem;
+        padding: 5px 20px;
+    }
+
+    .complaint-form label {
+        font-size: 0.7rem;
+    }
+
+    .submit-complaint-btn {
+        font-size: 0.8rem;
+    }
+
+    .add-complaint-return-btn {
+        margin: 15px;
+        padding: 10px 30px;
+        font-size: 0.8rem;
+    }
+}

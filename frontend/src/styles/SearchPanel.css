@@ -1,7 +1,6 @@
 .search-panel {
     display: flex;
     flex-direction: column;
-    min-height: 80vh;
     align-items: center;
 }
 

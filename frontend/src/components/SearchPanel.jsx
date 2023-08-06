@@ -69,12 +69,12 @@ const SearchPanel = () => {
               <td>{filteredData.car_id}</td>
               <td>
                 <Link to={`details/vehicles/${filteredData.vehicle_model}`}>
-                  {filteredData.vehicle_model_details}
+                  {filteredData.vehicle_model_info.name}
                 </Link>
               </td>
               <td>
                 <Link to={`details/engines/${filteredData.engine_model}`}>
-                  {filteredData.engine_model_details}
+                  {filteredData.engine_model_info.name}
                 </Link>
               </td>
               <td>{filteredData.engine_id}</td>
@@ -82,7 +82,7 @@ const SearchPanel = () => {
                 <Link
                   to={`details/transmissions/${filteredData.transmission_model}`}
                 >
-                  {filteredData.transmission_model_details}
+                  {filteredData.transmission_model_info.name}
                 </Link>
               </td>
               <td>{filteredData.transmission_id}</td>
@@ -90,7 +90,7 @@ const SearchPanel = () => {
                 <Link
                   to={`details/driving-axles/${filteredData.driving_axle_model}`}
                 >
-                  {filteredData.driving_axle_model_details}
+                  {filteredData.driving_axle_model_info.name}
                 </Link>
               </td>
               <td>{filteredData.driving_axle_id}</td>
@@ -98,7 +98,7 @@ const SearchPanel = () => {
                 <Link
                   to={`details/steering-axles/${filteredData.steering_axle_model}`}
                 >
-                  {filteredData.steering_axle_model_details}
+                  {filteredData.steering_axle_model_info.name}
                 </Link>
               </td>
               <td>{filteredData.steering_axle_id}</td>

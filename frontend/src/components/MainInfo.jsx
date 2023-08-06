@@ -47,14 +47,14 @@ const MainInfo = () => {
         <button
           ref={maintenanceRef}
           onClick={handleMaintenanceInfo}
-          className="nav-btn"
+          className="nav-btn passive"
         >
           ТО
         </button>
         <button
           ref={complaintRef}
           onClick={handleComplaintInfo}
-          className="nav-btn"
+          className="nav-btn passive"
         >
           Рекламации
         </button>

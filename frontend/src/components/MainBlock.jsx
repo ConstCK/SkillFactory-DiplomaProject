@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/MainBlock.css";
 import resultContext from "../context/createContext";
 import {
@@ -9,6 +9,7 @@ import {
 } from "../api/dataService";
 
 const MainBlock = ({ group }) => {
+  const navigate = useNavigate();
   const [currentData, setCurrentData] = useState([]);
   const [userName, setUserName] = useState(localStorage.getItem("user"));
   const [password, setPassword] = useState(localStorage.getItem("password"));
@@ -23,6 +24,10 @@ const MainBlock = ({ group }) => {
       getServiceCompaniesCars(userName, password, setCurrentData);
     }
   }, []);
+
+  const handleAddCar = () => {
+    navigate("/add-car");
+  };
   return (
     <div className="main-info-block">
       <table className="main-result-table">
@@ -53,12 +58,12 @@ const MainBlock = ({ group }) => {
                 <td>{element.car_id}</td>
                 <td>
                   <Link to={`details/vehicles/${element.vehicle_model}`}>
-                    {element.vehicle_model_details}
+                    {element.vehicle_model_info.name}
                   </Link>
                 </td>
                 <td>
                   <Link to={`details/engines/${element.engine_model}`}>
-                    {element.engine_model_details}
+                    {element.engine_model_info.name}
                   </Link>
                 </td>
                 <td>{element.engine_id}</td>
@@ -66,7 +71,7 @@ const MainBlock = ({ group }) => {
                   <Link
                     to={`details/transmissions/${element.transmission_model}`}
                   >
-                    {element.transmission_model_details}
+                    {element.transmission_model_info.name}
                   </Link>
                 </td>
                 <td>{element.transmission_id}</td>
@@ -74,7 +79,7 @@ const MainBlock = ({ group }) => {
                   <Link
                     to={`details/driving-axles/${element.driving_axle_model}`}
                   >
-                    {element.driving_axle_model_details}
+                    {element.driving_axle_model_info.name}
                   </Link>
                 </td>
                 <td>{element.driving_axle_id}</td>
@@ -82,12 +87,12 @@ const MainBlock = ({ group }) => {
                   <Link
                     to={`details/steering-axles/${element.steering_axle_model}`}
                   >
-                    {element.steering_axle_model_details}
+                    {element.steering_axle_model_info.name}
                   </Link>
                 </td>
                 <td>{element.steering_axle_id}</td>
                 <td>{element.discharge_date}</td>
-                <td>{element.client_details}</td>
+                <td>{element.client_info.username}</td>
                 <td>{element.receiver}</td>
                 <td>{element.delivery_address}</td>
                 <td>{element.vehicle_configuration}</td>
@@ -96,7 +101,7 @@ const MainBlock = ({ group }) => {
                   <Link
                     to={`details/service-companies/${element.service_company}`}
                   >
-                    {element.service_company_details}
+                    {element.service_company_info.name}
                   </Link>
                 </td>
               </tr>
@@ -104,6 +109,11 @@ const MainBlock = ({ group }) => {
           })}
         </tbody>
       </table>
+      {group === "3" && (
+        <button onClick={handleAddCar} className="add-car-btn">
+          Добавить данные о погрузчиках
+        </button>
+      )}
     </div>
   );
 };

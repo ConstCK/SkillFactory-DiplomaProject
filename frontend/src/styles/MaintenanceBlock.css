@@ -1,13 +1,14 @@
 .maintenance-info-block {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
 .maintenance-result-table {
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-align: center;
-    margin: 10px 20px;
+    margin: 20px 20px;
     width: 90vw;
 
 }
@@ -16,14 +17,31 @@
 .maintenance-result-table td {
     border: 2px var(--color-1) solid;
     padding: 10px;
-    /* max-width: 85px; */
+}
+
+.add-maintenance-btn {
+    margin: 20px;
+    padding: 10px 40px;
+    background-color: var(--color-2);
+    box-shadow: 1px 2px var(--color-1);
+    color: azure;
+    border: none;
+    border-radius: 2px;
+    font-family: "PT Astra Font regular", sans-serif;
+    font-size: 1.1rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.add-maintenance-btn:active {
+    box-shadow: 2px 1px var(--color-1);
+    color: var(--color-1);
 }
 
 @media (min-width:992px) and (max-width: 1365px) {
 
     .maintenance-result-table th,
     .maintenance-result-table td {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
     }
 }
 
@@ -38,6 +56,11 @@
         border: 1px var(--color-1) solid;
         padding: 5px;
     }
+
+    .add-maintenance-btn {
+        padding: 10px 26px;
+
+    }
 }
 
 @media (min-width: 320px) and (max-width: 766px) {
@@ -50,5 +73,11 @@
     .maintenance-result-table td {
         border: 1px var(--color-1) solid;
         padding: 3px;
+    }
+
+    .add-maintenance-btn {
+        margin: 5px;
+        padding: 8px 20px;
+        font-size: 0.7rem;
     }
 }
