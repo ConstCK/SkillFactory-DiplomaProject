@@ -30,6 +30,8 @@
 .maintenance-form select {
     margin: 5px 0;
     padding: 10px 20px;
+    border: 1px solid var(--color-1);
+    box-shadow: 2px 1px var(--color-1);
 }
 
 .maintenance-form input:invalid,

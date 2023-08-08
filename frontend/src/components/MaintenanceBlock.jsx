@@ -28,7 +28,7 @@ const MaintenanceBlock = ({ group }) => {
     navigate("add-maintenance");
   };
   return (
-    <div className="maintenance-info-block">
+    <div className="maintenance-info-container">
       <table className="maintenance-result-table">
         <thead>
           <tr>

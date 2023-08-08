@@ -52,24 +52,32 @@ class SteeringAxleSerializer(serializers.ModelSerializer):
 
 
 class MaintenanceTypeSerializer(serializers.ModelSerializer):
+    verbose_name = serializers.CharField(read_only=True)
+
     class Meta:
         model = MaintenanceType
         fields = '__all__'
 
 
 class BreakageSerializer(serializers.ModelSerializer):
+    verbose_name = serializers.CharField(read_only=True)
+
     class Meta:
         model = Breakage
         fields = '__all__'
 
 
 class RepairSerializer(serializers.ModelSerializer):
+    verbose_name = serializers.CharField(read_only=True)
+
     class Meta:
         model = Repair
         fields = '__all__'
 
 
 class ServiceCompanySerializer(serializers.ModelSerializer):
+    verbose_name = serializers.CharField(read_only=True)
+
     class Meta:
         model = ServiceCompany
         fields = '__all__'

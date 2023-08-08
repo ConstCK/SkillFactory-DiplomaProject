@@ -3,7 +3,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions, viewsets
 from rest_framework.decorators import api_view, permission_classes, action
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
 from .models import Car, Maintenance, Complaint, Vehicle, Engine, Transmission, DrivingAxle, SteeringAxle, \
@@ -14,7 +14,7 @@ from .serializers import CarSerializer, ComplaintSerializer, MaintenanceSerializ
 
 
 class CarViewSet(viewsets.ModelViewSet):
-    # permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = CarSerializer
     queryset = Car.objects.all()
 
@@ -25,7 +25,6 @@ class CarViewSet(viewsets.ModelViewSet):
             serializer = self.get_serializer(instance)
             result = serializer.data
         except:
-            print('error')
             result = ''
 
         return Response(result)
@@ -38,7 +37,6 @@ class CarViewSet(viewsets.ModelViewSet):
             serializer = CarSerializer(queryset, many=True)
             result = serializer.data
         except:
-            print('error')
             result = ''
 
         return Response(result)
@@ -52,14 +50,13 @@ class CarViewSet(viewsets.ModelViewSet):
             serializer = CarSerializer(queryset, many=True)
             result = serializer.data
         except:
-            print('error')
             result = ''
 
         return Response(result)
 
 
 class MaintenanceViewSet(viewsets.ModelViewSet):
-    # permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = MaintenanceSerializer
     queryset = Maintenance.objects.all()
 
@@ -72,7 +69,6 @@ class MaintenanceViewSet(viewsets.ModelViewSet):
             serializer = MaintenanceSerializer(queryset, many=True)
             result = serializer.data
         except:
-            print('error')
             result = ''
 
         return Response(result)
@@ -86,14 +82,13 @@ class MaintenanceViewSet(viewsets.ModelViewSet):
             serializer = MaintenanceSerializer(queryset, many=True)
             result = serializer.data
         except:
-            print('error')
             result = ''
 
         return Response(result)
 
 
 class ComplaintViewSet(viewsets.ModelViewSet):
-    # permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = ComplaintSerializer
     queryset = Complaint.objects.all()
 
@@ -106,7 +101,6 @@ class ComplaintViewSet(viewsets.ModelViewSet):
             serializer = ComplaintSerializer(queryset, many=True)
             result = serializer.data
         except:
-            print('error')
             result = ''
 
         return Response(result)
@@ -122,58 +116,67 @@ class ComplaintViewSet(viewsets.ModelViewSet):
                 serializer = ComplaintSerializer(queryset, many=True)
                 result = serializer.data
             except:
-                print('error')
                 result = ''
 
         return Response(result)
 
 
 class UserInfoViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
 
 class VehicleViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = VehicleSerializer
     queryset = Vehicle.objects.all()
 
 
 class EngineViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = EngineSerializer
     queryset = Engine.objects.all()
 
 
 class TransmissionViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = TransmissionSerializer
     queryset = Transmission.objects.all()
 
 
 class DrivingAxleViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = DrivingAxleSerializer
     queryset = DrivingAxle.objects.all()
 
 
 class SteeringAxleViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = SteeringAxleSerializer
     queryset = SteeringAxle.objects.all()
 
 
 class MaintenanceTypeViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = MaintenanceTypeSerializer
     queryset = MaintenanceType.objects.all()
 
 
 class BreakageViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = BreakageSerializer
     queryset = Breakage.objects.all()
 
 
 class RepairViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = RepairSerializer
     queryset = Repair.objects.all()
 
 
 class ServiceCompanyViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = ServiceCompanySerializer
     queryset = ServiceCompany.objects.all()
 
@@ -188,7 +191,7 @@ class ServiceCompanyViewSet(viewsets.ModelViewSet):
             else:
                 result = 0
         except:
-            print('error')
+            print('Error...Current user is not Service company...')
             result = 0
 
         return Response(result)

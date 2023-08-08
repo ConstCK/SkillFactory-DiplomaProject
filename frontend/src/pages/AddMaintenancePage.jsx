@@ -69,7 +69,8 @@ const AddMaintenancePage = () => {
       password,
       group,
       currentServiceCompanyId,
-      postData
+      postData,
+      navigate
     );
   };
 

@@ -71,4 +71,13 @@ const carValidation = (data) => {
   );
 };
 
-export { maintenanceValidation, complaintValidation, carValidation };
+const catalogValidation = (type, data) => {
+  return data.name.length > 0 && data.description.length > 0;
+};
+
+export {
+  maintenanceValidation,
+  complaintValidation,
+  carValidation,
+  catalogValidation,
+};

@@ -70,7 +70,7 @@ const AddCarPage = () => {
 
   const handleCarPost = (e) => {
     e.preventDefault();
-    postNewCar(userName, password, postData);
+    postNewCar(userName, password, postData, navigate);
   };
 
   const handleReturn = () => {
@@ -185,7 +185,7 @@ const AddCarPage = () => {
         <label htmlFor="client">Покупатель</label>
         <select name="client" onChange={handleInputChange} required>
           <option value="">- Выберите покупапателя -</option>
-          {allClients.slice(2).map((element) => {
+          {allClients.slice(1).map((element) => {
             return (
               <option key={element.id} value={element.id}>
                 {element.username}

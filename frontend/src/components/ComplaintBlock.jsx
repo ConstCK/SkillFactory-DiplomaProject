@@ -30,7 +30,7 @@ const ComplaintBlock = ({ group }) => {
   };
 
   return (
-    <div className="complaint-info-block">
+    <div className="complaint-info-container">
       <table className="complaint-result-table">
         <thead>
           <tr>

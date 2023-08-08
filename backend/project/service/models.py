@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Vehicle(models.Model):
-    name = models.CharField(max_length=256, verbose_name='Название')
+    name = models.CharField(max_length=256, verbose_name='Название', unique=True)
     description = models.TextField(verbose_name='Описание')
 
     def __str__(self):
@@ -19,7 +19,7 @@ class Vehicle(models.Model):
 
 
 class Engine(models.Model):
-    name = models.CharField(max_length=256, verbose_name='Название')
+    name = models.CharField(max_length=256, verbose_name='Название', unique=True)
     description = models.TextField(verbose_name='Описание')
 
     def __str__(self):
@@ -35,7 +35,7 @@ class Engine(models.Model):
 
 
 class Transmission(models.Model):
-    name = models.CharField(max_length=256, verbose_name='Название')
+    name = models.CharField(max_length=256, verbose_name='Название', unique=True)
     description = models.TextField(verbose_name='Описание')
 
     def __str__(self):
@@ -51,7 +51,7 @@ class Transmission(models.Model):
 
 
 class DrivingAxle(models.Model):
-    name = models.CharField(max_length=256, verbose_name='Название')
+    name = models.CharField(max_length=256, verbose_name='Название', unique=True)
     description = models.TextField(verbose_name='Описание')
 
     def __str__(self):
@@ -67,7 +67,7 @@ class DrivingAxle(models.Model):
 
 
 class SteeringAxle(models.Model):
-    name = models.CharField(max_length=256, verbose_name='Название')
+    name = models.CharField(max_length=256, verbose_name='Название', unique=True)
     description = models.TextField(verbose_name='Описание')
 
     def __str__(self):
@@ -83,35 +83,47 @@ class SteeringAxle(models.Model):
 
 
 class MaintenanceType(models.Model):
-    name = models.CharField(max_length=256, verbose_name='Название')
+    name = models.CharField(max_length=256, verbose_name='Название', unique=True)
     description = models.TextField(verbose_name='Описание')
 
     def __str__(self):
         return self.name
 
+    @property
+    def verbose_name(self):
+        return self._meta.verbose_name.title()
+
     class Meta:
-        verbose_name = 'Вид ТО'
-        verbose_name_plural = 'Виды ТО'
+        verbose_name = 'Вид технического обслуживания'
+        verbose_name_plural = 'Виды технического обслуживания'
 
 
 class Breakage(models.Model):
-    name = models.CharField(max_length=256, verbose_name='Название')
+    name = models.CharField(max_length=256, verbose_name='Название', unique=True)
     description = models.TextField(verbose_name='Описание')
 
     def __str__(self):
         return self.name
 
+    @property
+    def verbose_name(self):
+        return self._meta.verbose_name.title()
+
     class Meta:
-        verbose_name = 'Характер отказа'
-        verbose_name_plural = 'Характер отказа'
+        verbose_name = 'Узел отказа'
+        verbose_name_plural = 'Узлы отказа'
 
 
 class Repair(models.Model):
-    name = models.CharField(max_length=256, verbose_name='Название')
+    name = models.CharField(max_length=256, verbose_name='Название', unique=True)
     description = models.TextField(verbose_name='Описание')
 
     def __str__(self):
         return self.name
+
+    @property
+    def verbose_name(self):
+        return self._meta.verbose_name.title()
 
     class Meta:
         verbose_name = 'Способ восстановления'
@@ -119,12 +131,16 @@ class Repair(models.Model):
 
 
 class ServiceCompany(models.Model):
-    name = models.CharField(max_length=256, verbose_name='Название')
+    name = models.CharField(max_length=256, verbose_name='Название', unique=True)
     description = models.TextField(verbose_name='Описание')
-    login_nickname = models.CharField(max_length=64, blank=True, verbose_name='Логин для входа')
+    login_nickname = models.CharField(max_length=64, unique=True, verbose_name='Логин для входа')
 
     def __str__(self):
         return self.name
+
+    @property
+    def verbose_name(self):
+        return self._meta.verbose_name.title()
 
     class Meta:
         verbose_name = 'Сервисная компания'

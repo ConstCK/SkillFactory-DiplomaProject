@@ -29,7 +29,7 @@ const MainBlock = ({ group }) => {
     navigate("/add-car");
   };
   return (
-    <div className="main-info-block">
+    <div className="main-info-container">
       <table className="main-result-table">
         <thead>
           <tr>

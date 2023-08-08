@@ -16,6 +16,7 @@ const DetailPage = () => {
   const handleReturn = () => {
     navigate("/");
   };
+
   return (
     <div className="details">
       <h1 className="details-title">Детальное описание:</h1>

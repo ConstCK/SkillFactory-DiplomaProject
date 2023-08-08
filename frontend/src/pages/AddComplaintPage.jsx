@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "../styles/AddComplaintPage.css";
 import { complaintValidation } from "../utils/validationService.js";
 import {
-  getServiceCompaniesCars,
   getAllCars,
   getAllServiceCompanies,
+  getServiceCompaniesCars,
   getBreakagesList,
   getRepairWaysList,
   postNewComplaint,
@@ -70,7 +70,8 @@ const AddComplaintPage = () => {
       password,
       group,
       currentServiceCompanyId,
-      postData
+      postData,
+      navigate
     );
   };
 

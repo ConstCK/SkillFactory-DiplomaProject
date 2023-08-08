@@ -2,17 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/InfoPanel.css";
 import { GROUPS, SWAGGER_URL } from "../utils/constants.js";
-import resultContext from "../context/createContext";
-import { getLimitedCars } from "../api/dataService";
 import MainInfo from "./MainInfo.jsx";
 
 const InfoPanel = () => {
-  const [user, setUser] = useState(localStorage.getItem("user"));
+  const [userName, setUserName] = useState(localStorage.getItem("user"));
   const [group, setGroup] = useState(localStorage.getItem("group"));
   return (
     <div className="info-panel">
       <h2 className="main-user-info">
-        {GROUPS[group]}: {user}
+        {GROUPS[group]}: {userName}
       </h2>
       <div className="title-container">
         <h1 className="info-panel-title">

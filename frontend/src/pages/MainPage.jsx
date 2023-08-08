@@ -7,8 +7,7 @@ import { useLocation } from "react-router-dom";
 
 function MainPage() {
   const location = useLocation();
-  const [isAuth, setIsAuth] = useContext(resultContext);
-  const [limitedData, setLimitedData] = useContext(resultContext);
+  const [isAuth, setIsAuth] = useContext(resultContext);  
 
   useEffect(() => {
     setIsAuth(localStorage.getItem("user"));

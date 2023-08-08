@@ -1,5 +1,5 @@
 .footer {
-    /* height: 20%; */
+    min-height: 15%;
     flex: 0 0 auto;
     display: flex;
     align-items: center;
@@ -8,4 +8,10 @@
     background-color: var(--color-1);
     color: azure;
     padding: 25px 20px;
+}
+
+@media (min-width: 320px) and (max-width: 766px) {
+    .footer {
+        padding: 10px 10px;
+    }
 }

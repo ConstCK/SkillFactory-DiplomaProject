@@ -3,7 +3,11 @@ const path = require("path");
 
 module.exports = {
   entry: "./src/index.js",
-  output: { filename: "bundle.js", path: path.resolve(__dirname, "dist") },
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "/",
+  },
   mode: "development",
   plugins: [new HtmlWebpackPlugin({ template: "./src/index.html" })],
   module: {
@@ -28,5 +32,6 @@ module.exports = {
   devServer: {
     hot: true,
     port: 3000,
+    historyApiFallback: true,
   },
 };

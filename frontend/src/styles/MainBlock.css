@@ -1,4 +1,4 @@
-.main-info-block {
+.main-info-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,7 +10,6 @@
     text-align: center;
     margin: 20px 20px;
     width: 90vw;
-
 }
 
 .add-car-btn {
@@ -42,7 +41,6 @@
     .main-result-table th,
     .main-result-table td {
         font-size: 0.5rem;
-        max-width: 85px;
     }
 }
 

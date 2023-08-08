@@ -25,22 +25,22 @@ import {
   ALL_CLIENTS_URL,
 } from "../utils/constants";
 
-const login = (userName, password, setter, redirection) => {
+const login = (user, password, setter, redirection) => {
   return axios({
     baseURL: BASE_URL,
     url: LOGIN_URL,
     method: "post",
     auth: {
-      username: userName,
+      username: user,
       password: password,
     },
     data: {
-      user: userName,
+      user: user,
     },
   })
     .then((response) => {
       console.log("Logged in successfully");
-      localStorage.setItem("user", response.data.username);
+      localStorage.setItem("user", response.data.user);
       localStorage.setItem("password", password);
       localStorage.setItem("group", response.data.groups[0]);
       localStorage.setItem("id", response.data.id);
@@ -105,7 +105,7 @@ const getAllCars = async (setter) => {
   });
 };
 
-const getClientsCars = (userName, password, id, setter) => {
+const getClientsCars = (user, password, id, setter) => {
   return axios({
     baseURL: BASE_URL,
     url: CLIENTS_CARS_URL,
@@ -114,7 +114,7 @@ const getClientsCars = (userName, password, id, setter) => {
       id: id,
     },
     auth: {
-      username: userName,
+      username: user,
       password: password,
     },
   })
@@ -126,16 +126,16 @@ const getClientsCars = (userName, password, id, setter) => {
     );
 };
 
-const getServiceCompaniesCars = (userName, password, setter) => {
+const getServiceCompaniesCars = (user, password, setter) => {
   return axios({
     baseURL: BASE_URL,
     url: SERVICE_COMPANIES_CARS_URL,
     method: "get",
     params: {
-      name: userName,
+      name: user,
     },
     auth: {
-      username: userName,
+      username: user,
       password: password,
     },
   })
@@ -159,7 +159,7 @@ const getAllMaintenance = (setter) => {
     .catch((error) => console.log("Ошибка получения данных о ТО", error));
 };
 
-const getClientsMaintenance = (userName, password, id, setter) => {
+const getClientsMaintenance = (user, password, id, setter) => {
   return axios({
     baseURL: BASE_URL,
     url: CLIENTS_MAINTENANCE_URL,
@@ -168,7 +168,7 @@ const getClientsMaintenance = (userName, password, id, setter) => {
       id: id,
     },
     auth: {
-      username: userName,
+      username: user,
       password: password,
     },
   })
@@ -178,16 +178,16 @@ const getClientsMaintenance = (userName, password, id, setter) => {
     .catch((error) => console.log("Ошибка получения данных о ТО", error));
 };
 
-const getServiceCompaniesMaintenance = (userName, password, setter) => {
+const getServiceCompaniesMaintenance = (user, password, setter) => {
   return axios({
     baseURL: BASE_URL,
     url: SERVICE_COMPANIES_MAINTENANCE_URL,
     method: "get",
     params: {
-      name: userName,
+      name: user,
     },
     auth: {
-      username: userName,
+      username: user,
       password: password,
     },
   })
@@ -211,7 +211,7 @@ const getAllComplaints = (setter) => {
     );
 };
 
-const getClientsComplaints = (userName, password, id, setter) => {
+const getClientsComplaints = (user, password, id, setter) => {
   return axios({
     baseURL: BASE_URL,
     url: CLIENTS_COMPLAINTS_URL,
@@ -220,7 +220,7 @@ const getClientsComplaints = (userName, password, id, setter) => {
       id: id,
     },
     auth: {
-      username: userName,
+      username: user,
       password: password,
     },
   })
@@ -232,16 +232,16 @@ const getClientsComplaints = (userName, password, id, setter) => {
     );
 };
 
-const getServiceCompaniesComplaints = (userName, password, setter) => {
+const getServiceCompaniesComplaints = (user, password, setter) => {
   return axios({
     baseURL: BASE_URL,
     url: SERVICE_COMPANIES_COMPLAINTS_URL,
     method: "get",
     params: {
-      name: userName,
+      name: user,
     },
     auth: {
-      username: userName,
+      username: user,
       password: password,
     },
   })
@@ -250,20 +250,6 @@ const getServiceCompaniesComplaints = (userName, password, setter) => {
     })
     .catch((error) =>
       console.log("Ошибка получения данных о погрузчиках", error)
-    );
-};
-
-const getDetails = (url, setter) => {
-  return axios({
-    baseURL: BASE_URL,
-    url: url,
-    method: "get",
-  })
-    .then((response) => {
-      setter(response.data);
-    })
-    .catch((error) =>
-      console.log("Ошибка получения подробных данных...", error)
     );
 };
 
@@ -393,12 +379,64 @@ const getSteeringAxleList = (setter) => {
     });
 };
 
+const getDetails = (url, setter) => {
+  return axios({
+    baseURL: BASE_URL,
+    url: url,
+    method: "get",
+  })
+    .then((response) => {
+      setter(response.data);
+    })
+    .catch((error) =>
+      console.log("Ошибка получения подробных данных...", error)
+    );
+};
+
+const getAllCatalogs = (url, setter, titleSetter) => {
+  return axios({
+    baseURL: BASE_URL,
+    url: url,
+    method: "get",
+  })
+    .then((response) => {
+      setter(response.data);
+      titleSetter(response.data[0].verbose_name);
+    })
+    .catch((error) => {
+      console.log("Ошибка получения данных...", error);
+    });
+};
+
+const getUniversalData = (
+  urlPart1,
+  urlPart2,
+  setter,
+  titleSetter,
+  nameSetter
+) => {
+  return axios({
+    baseURL: BASE_URL,
+    url: `${urlPart1}/${urlPart2}/`,
+    method: "get",
+  })
+    .then((response) => {
+      console.log(response.data);
+      setter(response.data);
+      titleSetter(response.data.name);
+    })
+    .catch((error) => {
+      console.log("Ошибка получения данных...", error);
+    });
+};
+
 const postNewMaintenance = async (
   user,
   password,
   group,
   serviceCompanyId,
-  data
+  data,
+  redirection
 ) => {
   if (group === "1") {
     data.service_company = 4;
@@ -417,10 +455,12 @@ const postNewMaintenance = async (
     },
   })
     .then((response) => {
+      redirection("/success");
       return response.data;
     })
     .catch((error) => {
       console.log("Ошибка отправки данных...", error);
+      redirection("/fail");
     });
 };
 
@@ -429,13 +469,13 @@ const postNewComplaint = async (
   password,
   group,
   serviceCompanyId,
-  data
+  data,
+  redirection
 ) => {
-  console.log(data);
   if (group === "2") {
     data.service_company = serviceCompanyId;
   }
-  console.log(data);
+
   return await axios({
     baseURL: BASE_URL,
     url: ALL_COMPLAINTS_URL,
@@ -447,14 +487,16 @@ const postNewComplaint = async (
     },
   })
     .then((response) => {
+      redirection("/success");
       return response.data;
     })
     .catch((error) => {
       console.log("Ошибка отправки данных...", error);
+      redirection("/fail");
     });
 };
 
-const postNewCar = async (user, password, data) => {
+const postNewCar = async (user, password, data, redirection) => {
   return await axios({
     baseURL: BASE_URL,
     url: ALL_CARS_URL,
@@ -466,11 +508,62 @@ const postNewCar = async (user, password, data) => {
     },
   })
     .then((response) => {
-      console.log("newCar", response.data);
+      redirection("/success");
       return response.data;
     })
     .catch((error) => {
       console.log("Ошибка отправки данных...", error);
+      redirection("/fail");
+    });
+};
+
+const postNewCatalog = async (user, password, url, data, redirection) => {
+  return await axios({
+    baseURL: BASE_URL,
+    url: `${url}/`,
+    method: "post",
+    data: data,
+    auth: {
+      username: user,
+      password: password,
+    },
+  })
+    .then((response) => {
+      redirection("/success");
+      return response.data;
+    })
+    .catch((error) => {
+      console.log("Ошибка отправки данных...", error);
+      redirection("/fail");
+    });
+};
+
+const changeCatalog = async (
+  user,
+  password,
+  urlPart1,
+  urlPart2,
+  data,
+  redirection
+) => {
+  return await axios({
+    baseURL: BASE_URL,
+    url: `${urlPart1}/${urlPart2}/`,
+    method: "patch",
+    data: data,
+    auth: {
+      username: user,
+      password: password,
+    },
+  })
+    .then((response) => {
+      console.log(response.data);
+      redirection("/success");
+      return response.data;
+    })
+    .catch((error) => {
+      console.log("Ошибка отправки данных...", error);
+      redirection("/fail");
     });
 };
 
@@ -497,8 +590,12 @@ export {
   getDrivingAxleList,
   getSteeringAxleList,
   getAllClients,
+  getAllCatalogs,
+  getUniversalData,
   postNewMaintenance,
   postNewComplaint,
   postNewCar,
+  postNewCatalog,
+  changeCatalog,
   login,
 };
