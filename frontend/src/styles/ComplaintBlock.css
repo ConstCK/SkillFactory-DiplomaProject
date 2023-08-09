@@ -3,14 +3,35 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100vw;
 }
 
 .complaint-result-table {
     font-size: 1rem;
     text-align: center;
     margin: 20px 20px;
-    width: 90vw;
+    display: block;
+    overflow-x: auto;
+    width: 90%;
 
+}
+
+.empty-cell {
+    background-color: var(--color-1);
+}
+
+.complaint-data-filter {
+    font-size: 1rem;
+    padding: 5px;
+    background-color: var(--color-3);
+    text-align: center;
+    border-radius: 40% 0 0 0;
+}
+
+.complaint-data-filter:focus {
+    color: var(--color-2);
+    border: solid 1px red;
+    font-family: "PT Astra Font bold";
 }
 
 .add-complaint-btn {
@@ -41,13 +62,17 @@
 
     .complaint-result-table th,
     .complaint-result-table td {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
+    }
+
+    .complaint-data-filter {
+        font-size: 0.8rem;
     }
 }
 
 @media (min-width: 767px) and (max-width: 991px) {
     .complaint-result-table {
-        font-size: 0.6rem;
+        font-size: 0.7rem;
         margin: 10px 10px;
     }
 
@@ -56,11 +81,15 @@
         border: 1px var(--color-1) solid;
         padding: 5px;
     }
+
+    .complaint-data-filter {
+        font-size: 0.7rem;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 766px) {
     .complaint-result-table {
-        font-size: 0.25rem;
+        font-size: 0.5rem;
         margin: 10px;
     }
 
@@ -71,6 +100,10 @@
     }
 
     .add-complaint-btn {
+        font-size: 0.5rem;
+    }
+
+    .complaint-data-filter {
         font-size: 0.5rem;
     }
 }

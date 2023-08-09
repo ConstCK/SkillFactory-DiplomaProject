@@ -1,32 +1,98 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/ComplaintBlock.css";
 import {
   getAllComplaints,
   getClientsComplaints,
   getServiceCompaniesComplaints,
+  getBreakagesList,
+  getRepairWaysList,
+  getAllServiceCompanies,
 } from "../api/dataService.js";
 
 const ComplaintBlock = ({ group }) => {
   const navigate = useNavigate();
+  const breakageRef = useRef(null);
+  const repairRef = useRef(null);
+  const serviceCompanyRef = useRef(null);
   const [currentData, setCurrentData] = useState([]);
+  const [allData, setAllData] = useState([]);
+  const [allBreakages, setAllBreakages] = useState([]);
+  const [allRepairWays, setAllRepairWays] = useState([]);
+  const [allServiceCompanies, setAllServiceCompanies] = useState([]);
   const [userName, setUserName] = useState(localStorage.getItem("user"));
   const [password, setPassword] = useState(localStorage.getItem("password"));
   const [userId, setuserId] = useState(localStorage.getItem("id"));
 
   useEffect(() => {
     if (group === "3") {
-      getAllComplaints(setCurrentData);
-      console.log(currentData);
+      getAllComplaints(setAllData, setCurrentData);
     } else if (group === "1") {
-      getClientsComplaints(userName, password, userId, setCurrentData);
+      getClientsComplaints(
+        userName,
+        password,
+        userId,
+        setAllData,
+        setCurrentData
+      );
     } else if (group === "2") {
-      getServiceCompaniesComplaints(userName, password, setCurrentData);
+      getServiceCompaniesComplaints(
+        userName,
+        password,
+        setAllData,
+        setCurrentData
+      );
     }
+    getBreakagesList(setAllBreakages);
+    getRepairWaysList(setAllRepairWays);
+    getAllServiceCompanies(setAllServiceCompanies);
   }, []);
 
   const handleAddComplaint = () => {
     navigate("/add-complaint");
+  };
+
+  const handleBreakageFilter = (e) => {
+    if (e.target.value == 0) {
+      setCurrentData(allData);
+    } else {
+      const result = allData.filter((item) => {
+        return item.breakage_type_info.name == e.target.value;
+      });
+      setCurrentData(result);
+    }
+    repairRef.current.selected = true;
+    if (group !== "2") {
+      serviceCompanyRef.current.selected = true;
+    }
+  };
+
+  const handleRepairFilter = (e) => {
+    if (e.target.value == 0) {
+      setCurrentData(allData);
+    } else {
+      const result = allData.filter((item) => {
+        return item.repairing_way_info.name == e.target.value;
+      });
+      setCurrentData(result);
+    }
+    breakageRef.current.selected = true;
+    if (group !== "2") {
+      serviceCompanyRef.current.selected = true;
+    }
+  };
+
+  const handleServiceCompanyFilter = (e) => {
+    if (e.target.value == 0) {
+      setCurrentData(allData);
+    } else {
+      const result = allData.filter((item) => {
+        return item.service_company_info.name == e.target.value;
+      });
+      setCurrentData(result);
+    }
+    breakageRef.current.selected = true;
+    repairRef.current.selected = true;
   };
 
   return (
@@ -47,6 +113,67 @@ const ComplaintBlock = ({ group }) => {
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td colSpan={3} className="empty-cell"></td>
+            <td>
+              <select
+                className="complaint-data-filter"
+                onChange={handleBreakageFilter}
+              >
+                <option ref={breakageRef} value={0}>
+                  Все
+                </option>
+                {allBreakages.map((element) => {
+                  return (
+                    <option key={element.id} value={element.name}>
+                      {element.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </td>
+            <td className="empty-cell"></td>
+            <td>
+              <select
+                className="complaint-data-filter"
+                onChange={handleRepairFilter}
+              >
+                <option ref={repairRef} value={0}>
+                  Все
+                </option>
+                {allRepairWays.map((element) => {
+                  return (
+                    <option key={element.id} value={element.name}>
+                      {element.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </td>
+            <td colSpan={2} className="empty-cell"></td>
+            {group !== "2" ? (
+              <td>
+                <select
+                  className="complaint-data-filter"
+                  onChange={handleServiceCompanyFilter}
+                >
+                  <option ref={serviceCompanyRef} value={0}>
+                    Все
+                  </option>
+                  {allServiceCompanies.map((element) => {
+                    return (
+                      <option key={element.id} value={element.name}>
+                        {element.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </td>
+            ) : (
+              <td className="empty-cell"></td>
+            )}
+            <td className="empty-cell"></td>
+          </tr>
           {currentData.map((element) => {
             return (
               <tr key={element.id}>

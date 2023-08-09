@@ -40,7 +40,7 @@ const login = (user, password, setter, redirection) => {
   })
     .then((response) => {
       console.log("Logged in successfully");
-      localStorage.setItem("user", response.data.user);
+      localStorage.setItem("user", response.data.username);
       localStorage.setItem("password", password);
       localStorage.setItem("group", response.data.groups[0]);
       localStorage.setItem("id", response.data.id);
@@ -95,17 +95,20 @@ const getAllClients = (setter) => {
     });
 };
 
-const getAllCars = async (setter) => {
+const getAllCars = async (setter1, setter2) => {
   return await axios({
     baseURL: BASE_URL,
     url: ALL_CARS_URL,
     method: "get",
   }).then((response) => {
-    setter(response.data);
+    setter1(response.data);
+    if (setter2) {
+      setter2(response.data);
+    }
   });
 };
 
-const getClientsCars = (user, password, id, setter) => {
+const getClientsCars = (user, password, id, setter1, setter2) => {
   return axios({
     baseURL: BASE_URL,
     url: CLIENTS_CARS_URL,
@@ -119,14 +122,17 @@ const getClientsCars = (user, password, id, setter) => {
     },
   })
     .then((response) => {
-      setter(response.data);
+      setter1(response.data);
+      if (setter2) {
+        setter2(response.data);
+      }
     })
     .catch((error) =>
       console.log("Ошибка получения данных о погрузчиках", error)
     );
 };
 
-const getServiceCompaniesCars = (user, password, setter) => {
+const getServiceCompaniesCars = (user, password, setter1, setter2) => {
   return axios({
     baseURL: BASE_URL,
     url: SERVICE_COMPANIES_CARS_URL,
@@ -140,26 +146,32 @@ const getServiceCompaniesCars = (user, password, setter) => {
     },
   })
     .then((response) => {
-      setter(response.data);
+      setter1(response.data);
+      if (setter2) {
+        setter2(response.data);
+      }
     })
     .catch((error) =>
       console.log("Ошибка получения данных о погрузчиках", error)
     );
 };
 
-const getAllMaintenance = (setter) => {
+const getAllMaintenance = (setter1, setter2) => {
   return axios({
     baseURL: BASE_URL,
     url: ALL_MAINTENANCE_URL,
     method: "get",
   })
     .then((response) => {
-      setter(response.data);
+      setter1(response.data);
+      if (setter2) {
+        setter2(response.data);
+      }
     })
     .catch((error) => console.log("Ошибка получения данных о ТО", error));
 };
 
-const getClientsMaintenance = (user, password, id, setter) => {
+const getClientsMaintenance = (user, password, id, setter1, setter2) => {
   return axios({
     baseURL: BASE_URL,
     url: CLIENTS_MAINTENANCE_URL,
@@ -173,12 +185,15 @@ const getClientsMaintenance = (user, password, id, setter) => {
     },
   })
     .then((response) => {
-      setter(response.data);
+      setter1(response.data);
+      if (setter2) {
+        setter2(response.data);
+      }
     })
     .catch((error) => console.log("Ошибка получения данных о ТО", error));
 };
 
-const getServiceCompaniesMaintenance = (user, password, setter) => {
+const getServiceCompaniesMaintenance = (user, password, setter1, setter2) => {
   return axios({
     baseURL: BASE_URL,
     url: SERVICE_COMPANIES_MAINTENANCE_URL,
@@ -192,26 +207,32 @@ const getServiceCompaniesMaintenance = (user, password, setter) => {
     },
   })
     .then((response) => {
-      setter(response.data);
+      setter1(response.data);
+      if (setter2) {
+        setter2(response.data);
+      }
     })
     .catch((error) => console.log("Ошибка получения данных о ТО", error));
 };
 
-const getAllComplaints = (setter) => {
+const getAllComplaints = (setter1, setter2) => {
   return axios({
     baseURL: BASE_URL,
     url: ALL_COMPLAINTS_URL,
     method: "get",
   })
     .then((response) => {
-      setter(response.data);
+      setter1(response.data);
+      if (setter2) {
+        setter2(response.data);
+      }
     })
     .catch((error) =>
       console.log("Ошибка получения данных о рекламациях", error)
     );
 };
 
-const getClientsComplaints = (user, password, id, setter) => {
+const getClientsComplaints = (user, password, id, setter1, setter2) => {
   return axios({
     baseURL: BASE_URL,
     url: CLIENTS_COMPLAINTS_URL,
@@ -225,14 +246,17 @@ const getClientsComplaints = (user, password, id, setter) => {
     },
   })
     .then((response) => {
-      setter(response.data);
+      setter1(response.data);
+      if (setter2) {
+        setter2(response.data);
+      }
     })
     .catch((error) =>
       console.log("Ошибка получения данных о рекламациях", error)
     );
 };
 
-const getServiceCompaniesComplaints = (user, password, setter) => {
+const getServiceCompaniesComplaints = (user, password, setter1, setter2) => {
   return axios({
     baseURL: BASE_URL,
     url: SERVICE_COMPANIES_COMPLAINTS_URL,
@@ -246,7 +270,10 @@ const getServiceCompaniesComplaints = (user, password, setter) => {
     },
   })
     .then((response) => {
-      setter(response.data);
+      setter1(response.data);
+      if (setter2) {
+        setter2(response.data);
+      }
     })
     .catch((error) =>
       console.log("Ошибка получения данных о погрузчиках", error)
@@ -408,13 +435,7 @@ const getAllCatalogs = (url, setter, titleSetter) => {
     });
 };
 
-const getUniversalData = (
-  urlPart1,
-  urlPart2,
-  setter,
-  titleSetter,
-  nameSetter
-) => {
+const getUniversalData = (urlPart1, urlPart2, setter, titleSetter) => {
   return axios({
     baseURL: BASE_URL,
     url: `${urlPart1}/${urlPart2}/`,
@@ -557,7 +578,6 @@ const changeCatalog = async (
     },
   })
     .then((response) => {
-      console.log(response.data);
       redirection("/success");
       return response.data;
     })

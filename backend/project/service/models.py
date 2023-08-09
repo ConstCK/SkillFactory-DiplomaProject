@@ -16,6 +16,7 @@ class Vehicle(models.Model):
     class Meta:
         verbose_name = 'Модель погрузчика'
         verbose_name_plural = 'Модели погрузчика'
+        ordering = ['name']
 
 
 class Engine(models.Model):
@@ -32,6 +33,7 @@ class Engine(models.Model):
     class Meta:
         verbose_name = 'Модель двигателя'
         verbose_name_plural = 'Модели двигателя'
+        ordering = ['name']
 
 
 class Transmission(models.Model):
@@ -48,6 +50,7 @@ class Transmission(models.Model):
     class Meta:
         verbose_name = 'Модель трансмиссии'
         verbose_name_plural = 'Модели трансмиссии'
+        ordering = ['name']
 
 
 class DrivingAxle(models.Model):
@@ -64,6 +67,7 @@ class DrivingAxle(models.Model):
     class Meta:
         verbose_name = 'Модель ведущего моста'
         verbose_name_plural = 'Модели ведущего моста'
+        ordering = ['name']
 
 
 class SteeringAxle(models.Model):
@@ -80,6 +84,7 @@ class SteeringAxle(models.Model):
     class Meta:
         verbose_name = 'Модель управляемого моста'
         verbose_name_plural = 'Модели управляемого моста'
+        ordering = ['name']
 
 
 class MaintenanceType(models.Model):
@@ -96,6 +101,7 @@ class MaintenanceType(models.Model):
     class Meta:
         verbose_name = 'Вид технического обслуживания'
         verbose_name_plural = 'Виды технического обслуживания'
+        ordering = ['name']
 
 
 class Breakage(models.Model):
@@ -112,6 +118,7 @@ class Breakage(models.Model):
     class Meta:
         verbose_name = 'Узел отказа'
         verbose_name_plural = 'Узлы отказа'
+        ordering = ['name']
 
 
 class Repair(models.Model):
@@ -128,6 +135,7 @@ class Repair(models.Model):
     class Meta:
         verbose_name = 'Способ восстановления'
         verbose_name_plural = 'Способы восстановления'
+        ordering = ['name']
 
 
 class ServiceCompany(models.Model):
@@ -145,6 +153,7 @@ class ServiceCompany(models.Model):
     class Meta:
         verbose_name = 'Сервисная компания'
         verbose_name_plural = 'Сервисные компании'
+        ordering = ['name']
 
 
 class Car(models.Model):
