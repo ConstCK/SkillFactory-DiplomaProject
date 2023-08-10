@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/MainBlock.css";
 import {
@@ -11,6 +11,7 @@ import {
   getDrivingAxleList,
   getSteeringAxleList,
 } from "../api/dataService";
+import serviceContext from "../context/createContext.js";
 
 const MainBlock = ({ group }) => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const MainBlock = ({ group }) => {
   const [userName, setUserName] = useState(localStorage.getItem("user"));
   const [password, setPassword] = useState(localStorage.getItem("password"));
   const [userId, setuserId] = useState(localStorage.getItem("id"));
+  const { pageId, setPageId } = useContext(serviceContext);
 
   useEffect(() => {
     if (group === "3") {
@@ -43,6 +45,7 @@ const MainBlock = ({ group }) => {
     getTransmissionList(setAllTransmissions);
     getDrivingAxleList(setAllDrivingAxles);
     getSteeringAxleList(setAllSteeringAxles);
+    setPageId(1);
   }, []);
 
   const handleAddCar = () => {
@@ -295,6 +298,26 @@ const MainBlock = ({ group }) => {
             );
           })}
         </tbody>
+        <tfoot>
+          <tr>
+            <th style={{ width: "250px" }}>Модель техники</th>
+            <th>Зав. № машины</th>
+            <th>Модель двигателя</th>
+            <th>Зав. № двигателя</th>
+            <th>Модель трансмиссии</th>
+            <th>Зав. № трансмиссии</th>
+            <th>Модель ведущего моста</th>
+            <th>Зав. № ведущего моста</th>
+            <th>Модель управляемого моста</th>
+            <th>Зав. № управляемого моста</th>
+            <th>Дата отгрузки с завода</th>
+            <th>Покупатель</th>
+            <th>Грузополучатель</th>
+            <th>Адрес поставки</th>
+            <th>Комплектация</th>
+            <th>Сервисная компания</th>
+          </tr>
+        </tfoot>
       </table>
       {group === "3" && (
         <button onClick={handleAddCar} className="add-car-btn">

@@ -25,8 +25,8 @@ import {
   ALL_CLIENTS_URL,
 } from "../utils/constants";
 
-const login = (user, password, setter, redirection) => {
-  return axios({
+const login = async (user, password, setter, redirection) => {
+  return await axios({
     baseURL: BASE_URL,
     url: LOGIN_URL,
     method: "post",
@@ -53,8 +53,8 @@ const login = (user, password, setter, redirection) => {
     });
 };
 
-const getServiceCompanyId = (userId) => {
-  return axios({
+const getServiceCompanyId = async (userId) => {
+  return await axios({
     baseURL: BASE_URL,
     url: `service-companies/${userId}/service-company-id`,
     method: "get",
@@ -67,8 +67,8 @@ const getServiceCompanyId = (userId) => {
     );
 };
 
-const getFilteredCars = (id, setter) => {
-  return axios({
+const getFilteredCars = async (id, setter) => {
+  return await axios({
     baseURL: BASE_URL,
     url: `cars/${id}/${DEFINITE_CAR_URL}`,
     method: "get",
@@ -81,8 +81,8 @@ const getFilteredCars = (id, setter) => {
     );
 };
 
-const getAllClients = (setter) => {
-  return axios({
+const getAllClients = async (setter) => {
+  return await axios({
     baseURL: BASE_URL,
     url: ALL_CLIENTS_URL,
     method: "get",
@@ -108,8 +108,8 @@ const getAllCars = async (setter1, setter2) => {
   });
 };
 
-const getClientsCars = (user, password, id, setter1, setter2) => {
-  return axios({
+const getClientsCars = async (user, password, id, setter1, setter2) => {
+  return await axios({
     baseURL: BASE_URL,
     url: CLIENTS_CARS_URL,
     method: "get",
@@ -132,8 +132,8 @@ const getClientsCars = (user, password, id, setter1, setter2) => {
     );
 };
 
-const getServiceCompaniesCars = (user, password, setter1, setter2) => {
-  return axios({
+const getServiceCompaniesCars = async (user, password, setter1, setter2) => {
+  return await axios({
     baseURL: BASE_URL,
     url: SERVICE_COMPANIES_CARS_URL,
     method: "get",
@@ -156,8 +156,8 @@ const getServiceCompaniesCars = (user, password, setter1, setter2) => {
     );
 };
 
-const getAllMaintenance = (setter1, setter2) => {
-  return axios({
+const getAllMaintenance = async (setter1, setter2) => {
+  return await axios({
     baseURL: BASE_URL,
     url: ALL_MAINTENANCE_URL,
     method: "get",
@@ -171,8 +171,8 @@ const getAllMaintenance = (setter1, setter2) => {
     .catch((error) => console.log("Ошибка получения данных о ТО", error));
 };
 
-const getClientsMaintenance = (user, password, id, setter1, setter2) => {
-  return axios({
+const getClientsMaintenance = async (user, password, id, setter1, setter2) => {
+  return await axios({
     baseURL: BASE_URL,
     url: CLIENTS_MAINTENANCE_URL,
     method: "get",
@@ -193,8 +193,13 @@ const getClientsMaintenance = (user, password, id, setter1, setter2) => {
     .catch((error) => console.log("Ошибка получения данных о ТО", error));
 };
 
-const getServiceCompaniesMaintenance = (user, password, setter1, setter2) => {
-  return axios({
+const getServiceCompaniesMaintenance = async (
+  user,
+  password,
+  setter1,
+  setter2
+) => {
+  return await axios({
     baseURL: BASE_URL,
     url: SERVICE_COMPANIES_MAINTENANCE_URL,
     method: "get",
@@ -215,8 +220,8 @@ const getServiceCompaniesMaintenance = (user, password, setter1, setter2) => {
     .catch((error) => console.log("Ошибка получения данных о ТО", error));
 };
 
-const getAllComplaints = (setter1, setter2) => {
-  return axios({
+const getAllComplaints = async (setter1, setter2) => {
+  return await axios({
     baseURL: BASE_URL,
     url: ALL_COMPLAINTS_URL,
     method: "get",
@@ -232,8 +237,8 @@ const getAllComplaints = (setter1, setter2) => {
     );
 };
 
-const getClientsComplaints = (user, password, id, setter1, setter2) => {
-  return axios({
+const getClientsComplaints = async (user, password, id, setter1, setter2) => {
+  return await axios({
     baseURL: BASE_URL,
     url: CLIENTS_COMPLAINTS_URL,
     method: "get",
@@ -256,8 +261,13 @@ const getClientsComplaints = (user, password, id, setter1, setter2) => {
     );
 };
 
-const getServiceCompaniesComplaints = (user, password, setter1, setter2) => {
-  return axios({
+const getServiceCompaniesComplaints = async (
+  user,
+  password,
+  setter1,
+  setter2
+) => {
+  return await axios({
     baseURL: BASE_URL,
     url: SERVICE_COMPANIES_COMPLAINTS_URL,
     method: "get",
@@ -308,8 +318,8 @@ const getAllServiceCompanies = async (setter) => {
     });
 };
 
-const getBreakagesList = (setter) => {
-  return axios({
+const getBreakagesList = async (setter) => {
+  return await axios({
     baseURL: BASE_URL,
     url: BREAKAGES_URL,
     method: "get",
@@ -322,8 +332,8 @@ const getBreakagesList = (setter) => {
     });
 };
 
-const getRepairWaysList = (setter) => {
-  return axios({
+const getRepairWaysList = async (setter) => {
+  return await axios({
     baseURL: BASE_URL,
     url: REPAIR_WAY_URL,
     method: "get",
@@ -336,8 +346,8 @@ const getRepairWaysList = (setter) => {
     });
 };
 
-const getVehicleList = (setter) => {
-  return axios({
+const getVehicleList = async (setter) => {
+  return await axios({
     baseURL: BASE_URL,
     url: VEHICLES_URL,
     method: "get",
@@ -350,8 +360,8 @@ const getVehicleList = (setter) => {
     });
 };
 
-const getEngineList = (setter) => {
-  return axios({
+const getEngineList = async (setter) => {
+  return await axios({
     baseURL: BASE_URL,
     url: ENGINES_URL,
     method: "get",
@@ -364,8 +374,8 @@ const getEngineList = (setter) => {
     });
 };
 
-const getTransmissionList = (setter) => {
-  return axios({
+const getTransmissionList = async (setter) => {
+  return await axios({
     baseURL: BASE_URL,
     url: TRANSMISSIONS_URL,
     method: "get",
@@ -378,8 +388,8 @@ const getTransmissionList = (setter) => {
     });
 };
 
-const getDrivingAxleList = (setter) => {
-  return axios({
+const getDrivingAxleList = async (setter) => {
+  return await axios({
     baseURL: BASE_URL,
     url: DRIVING_AXLES_URL,
     method: "get",
@@ -392,8 +402,8 @@ const getDrivingAxleList = (setter) => {
     });
 };
 
-const getSteeringAxleList = (setter) => {
-  return axios({
+const getSteeringAxleList = async (setter) => {
+  return await axios({
     baseURL: BASE_URL,
     url: STEERING_AXLES_URL,
     method: "get",
@@ -406,8 +416,8 @@ const getSteeringAxleList = (setter) => {
     });
 };
 
-const getDetails = (url, setter) => {
-  return axios({
+const getDetails = async (url, setter) => {
+  return await axios({
     baseURL: BASE_URL,
     url: url,
     method: "get",
@@ -420,8 +430,8 @@ const getDetails = (url, setter) => {
     );
 };
 
-const getAllCatalogs = (url, setter, titleSetter) => {
-  return axios({
+const getAllCatalogs = async (url, setter, titleSetter) => {
+  return await axios({
     baseURL: BASE_URL,
     url: url,
     method: "get",
@@ -435,14 +445,13 @@ const getAllCatalogs = (url, setter, titleSetter) => {
     });
 };
 
-const getUniversalData = (urlPart1, urlPart2, setter, titleSetter) => {
-  return axios({
+const getUniversalData = async (urlPart1, urlPart2, setter, titleSetter) => {
+  return await axios({
     baseURL: BASE_URL,
     url: `${urlPart1}/${urlPart2}/`,
     method: "get",
   })
     .then((response) => {
-      console.log(response.data);
       setter(response.data);
       titleSetter(response.data.name);
     })

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
-import resultContext from "./context/createContext";
+import serviceContext from "./context/createContext";
 import "./App.css";
 import "./styles/variables.css";
 import MainPage from "./pages/MainPage.jsx";
@@ -21,10 +21,11 @@ import PostFailPage from "./pages/PostFailPage.jsx";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
+  const [pageId, setPageId] = useState(1);
 
   return (
     <React.Fragment>
-      <resultContext.Provider value={[isAuth, setIsAuth]}>
+      <serviceContext.Provider value={{ isAuth, setIsAuth, pageId, setPageId }}>
         <div className="root-container">
           <Header />
           <Routes>
@@ -48,7 +49,7 @@ function App() {
           </Routes>
           <Footer />
         </div>
-      </resultContext.Provider>
+      </serviceContext.Provider>
     </React.Fragment>
   );
 }

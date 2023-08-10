@@ -1,16 +1,14 @@
 import React, { useContext, useState } from "react";
 import "../styles/AuthPage.css";
 import { useNavigate } from "react-router-dom";
-import resultContext from "../context/createContext.js";
 import { login } from "../api/dataService.js";
-import { getServiceCompanyId } from "../api/dataService.js";
+import serviceContext from "../context/createContext.js";
 
 const AuthPage = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
-  const [userId, setUserId] = useState(localStorage.getItem("id"));
-  const [isAuth, setIsAuth] = useContext(resultContext);
+  const { isAuth, setIsAuth } = useContext(serviceContext);
 
   const loginHandle = (e) => {
     e.preventDefault();

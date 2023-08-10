@@ -71,7 +71,6 @@
     font-size: 1.1rem;
     margin: 10px;
     transition: all 0.3s ease-in-out;
-
 }
 
 .submit-car-btn:active {
@@ -123,15 +122,15 @@
 
     .car-form label {
         font-size: 0.7rem;
+    }
 
-        .submit-car-btn {
-            font-size: 0.8rem;
-        }
+    .submit-car-btn {
+        font-size: 0.8rem;
+    }
 
-        .add-car-return-btn {
-            margin: 15px;
-            padding: 10px 30px;
-            font-size: 0.8rem;
-        }
+    .add-car-return-btn {
+        margin: 15px;
+        padding: 10px 30px;
+        font-size: 0.8rem;
     }
 }

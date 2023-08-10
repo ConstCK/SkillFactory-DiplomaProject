@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100vw;
+    width: 90vw;
 }
 
 .complaint-result-table {
@@ -12,8 +12,8 @@
     margin: 20px 20px;
     display: block;
     overflow-x: auto;
-    width: 90%;
-
+    width: 100%;
+    border: 2px solid var(--color-1);
 }
 
 .empty-cell {
@@ -68,9 +68,11 @@
     .complaint-data-filter {
         font-size: 0.8rem;
     }
+
 }
 
 @media (min-width: 767px) and (max-width: 991px) {
+
     .complaint-result-table {
         font-size: 0.7rem;
         margin: 10px 10px;
@@ -79,15 +81,17 @@
     .complaint-result-table th,
     .complaint-result-table td {
         border: 1px var(--color-1) solid;
-        padding: 5px;
+        padding: 7px;
     }
 
     .complaint-data-filter {
         font-size: 0.7rem;
     }
+
 }
 
 @media (min-width: 320px) and (max-width: 766px) {
+
     .complaint-result-table {
         font-size: 0.5rem;
         margin: 10px;
@@ -106,4 +110,5 @@
     .complaint-data-filter {
         font-size: 0.5rem;
     }
+
 }

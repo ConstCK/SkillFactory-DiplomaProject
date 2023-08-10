@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import "../styles/Header.css";
 import Contacts from "./Contacts.jsx";
 import Logo1 from "../assets/images/Logotype RGB.png";

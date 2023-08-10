@@ -7,9 +7,11 @@ const Contacts = () => {
   return (
     <div className="contacts">
       <img className="icon" src={PhoneIcon} alt="Telephone" />
-      <div>+7 (835) 220-12-09</div>
+      <a href="tel: +78007005265">+7 (800) 700-52-65</a>
       <img className="icon" src={TelegramIcon} alt="Telegram" />
-      <div>+7 (835) 220-12-09</div>
+      <a href="https://t.me/chzsa21/" target="_blank">
+        <div>https://t.me/chzsa21/</div>
+      </a>
     </div>
   );
 };

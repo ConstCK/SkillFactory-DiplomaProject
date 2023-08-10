@@ -5,7 +5,6 @@ import { getAllCatalogs } from "../api/dataService.js";
 
 const CatalogPage = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { type } = useParams();
   const [data, setData] = useState([]);
   const [title, setTitle] = useState([]);

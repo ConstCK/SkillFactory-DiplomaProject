@@ -1,3 +1,3 @@
 import { createContext } from "react";
-const resultContext = createContext();
-export default resultContext;
+const serviceContext = createContext(null);
+export default serviceContext;

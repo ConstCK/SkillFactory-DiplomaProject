@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/ComplaintBlock.css";
 import {
@@ -8,21 +8,28 @@ import {
   getBreakagesList,
   getRepairWaysList,
   getAllServiceCompanies,
+  getServiceCompaniesCars,
+  getClientsCars,
+  getAllCars,
 } from "../api/dataService.js";
+import serviceContext from "../context/createContext.js";
 
 const ComplaintBlock = ({ group }) => {
   const navigate = useNavigate();
   const breakageRef = useRef(null);
   const repairRef = useRef(null);
+  const carRef = useRef(null);
   const serviceCompanyRef = useRef(null);
   const [currentData, setCurrentData] = useState([]);
   const [allData, setAllData] = useState([]);
+  const [allCars, setAllCars] = useState([]);
   const [allBreakages, setAllBreakages] = useState([]);
   const [allRepairWays, setAllRepairWays] = useState([]);
   const [allServiceCompanies, setAllServiceCompanies] = useState([]);
   const [userName, setUserName] = useState(localStorage.getItem("user"));
   const [password, setPassword] = useState(localStorage.getItem("password"));
   const [userId, setuserId] = useState(localStorage.getItem("id"));
+  const { pageId, setPageId } = useContext(serviceContext);
 
   useEffect(() => {
     if (group === "3") {
@@ -43,13 +50,37 @@ const ComplaintBlock = ({ group }) => {
         setCurrentData
       );
     }
+    if (group === "3") {
+      getAllCars(setAllCars);
+    } else if (group === "1") {
+      getClientsCars(userName, password, userId, setAllCars);
+    } else if (group === "2") {
+      getServiceCompaniesCars(userName, password, setAllCars);
+    }
     getBreakagesList(setAllBreakages);
     getRepairWaysList(setAllRepairWays);
     getAllServiceCompanies(setAllServiceCompanies);
+    setPageId(3);
   }, []);
 
   const handleAddComplaint = () => {
     navigate("/add-complaint");
+  };
+
+  const handleCarFilter = (e) => {
+    if (e.target.value == 0) {
+      setCurrentData(allData);
+    } else {
+      const result = allData.filter((item) => {
+        return item.car_id == e.target.value;
+      });
+      setCurrentData(result);
+    }
+    repairRef.current.selected = true;
+    breakageRef.current.selected = true;
+    if (group !== "2") {
+      serviceCompanyRef.current.selected = true;
+    }
   };
 
   const handleBreakageFilter = (e) => {
@@ -62,6 +93,7 @@ const ComplaintBlock = ({ group }) => {
       setCurrentData(result);
     }
     repairRef.current.selected = true;
+    carRef.current.selected = true;
     if (group !== "2") {
       serviceCompanyRef.current.selected = true;
     }
@@ -77,6 +109,7 @@ const ComplaintBlock = ({ group }) => {
       setCurrentData(result);
     }
     breakageRef.current.selected = true;
+    carRef.current.selected = true;
     if (group !== "2") {
       serviceCompanyRef.current.selected = true;
     }
@@ -93,6 +126,7 @@ const ComplaintBlock = ({ group }) => {
     }
     breakageRef.current.selected = true;
     repairRef.current.selected = true;
+    carRef.current.selected = true;
   };
 
   return (
@@ -114,7 +148,24 @@ const ComplaintBlock = ({ group }) => {
         </thead>
         <tbody>
           <tr>
-            <td colSpan={3} className="empty-cell"></td>
+            <td>
+              <select
+                className="complaint-data-filter"
+                onChange={handleCarFilter}
+              >
+                <option ref={carRef} value={0}>
+                  Все
+                </option>
+                {allCars.map((element) => {
+                  return (
+                    <option key={element.id} value={element.id}>
+                      {element.car_id}
+                    </option>
+                  );
+                })}
+              </select>
+            </td>
+            <td colSpan={2} className="empty-cell"></td>
             <td>
               <select
                 className="complaint-data-filter"
@@ -206,6 +257,20 @@ const ComplaintBlock = ({ group }) => {
             );
           })}
         </tbody>
+        <tfoot>
+          <tr>
+            <th>Зав. № машины</th>
+            <th>Дата отказа</th>
+            <th>Наработка, м/час</th>
+            <th>Узел отказа</th>
+            <th>Описание отказа</th>
+            <th>Способ восстановления</th>
+            <th>Используемые запасные части</th>
+            <th>Дата восстановления</th>
+            <th>Организация, проводившая ремонт</th>
+            <th>Время простоя техники</th>
+          </tr>
+        </tfoot>
       </table>
       {(group === "2" || group === "3") && (
         <button onClick={handleAddComplaint} className="add-complaint-btn">

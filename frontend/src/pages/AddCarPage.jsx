@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "../styles/AddCarPage.css";
 import { useNavigate } from "react-router-dom";
 import {
-  getAllCars,
   getAllServiceCompanies,
   getVehicleList,
   getEngineList,
@@ -19,8 +18,6 @@ const AddCarPage = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState(localStorage.getItem("user"));
   const [password, setPassword] = useState(localStorage.getItem("password"));
-  const [group, setGroup] = useState(localStorage.getItem("group"));
-  const [allCars, setAllCars] = useState([]);
   const [allVehicles, setAllVehicles] = useState([]);
   const [allEngines, setAllEngines] = useState([]);
   const [allTransmissions, setAllTransmissions] = useState([]);
@@ -50,7 +47,6 @@ const AddCarPage = () => {
   });
 
   useEffect(() => {
-    getAllCars(setAllCars);
     getVehicleList(setAllVehicles);
     getEngineList(setAllEngines);
     getTransmissionList(setAllTransmissions);
@@ -153,20 +149,20 @@ const AddCarPage = () => {
             );
           })}
         </select>
-        <label htmlFor="steering_axle_id">Заводской № управляемог моста</label>
+        <label htmlFor="steering_axle_id">Заводской № управляемого моста</label>
         <input
           name="steering_axle_id"
           type="text"
           onChange={handleInputChange}
           required
         />
-        <label htmlFor="steering_axle_model">Модель управляемог моста</label>
+        <label htmlFor="steering_axle_model">Модель управляемого моста</label>
         <select
           name="steering_axle_model"
           onChange={handleInputChange}
           required
         >
-          <option value="">- Выберите модель управляемог моста -</option>
+          <option value="">- Выберите модель управляемого моста -</option>
           {allSteeringAxles.map((element) => {
             return (
               <option key={element.id} value={element.id}>

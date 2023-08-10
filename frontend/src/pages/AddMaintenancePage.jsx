@@ -10,7 +10,6 @@ import {
   getServiceCompaniesCars,
   getAllCars,
 } from "../api/dataService.js";
-
 import { maintenanceValidation } from "../utils/validationService.js";
 
 const AddMaintenancePage = () => {
@@ -63,7 +62,6 @@ const AddMaintenancePage = () => {
 
   const handleMaintenancePost = async (e) => {
     e.preventDefault();
-
     postNewMaintenance(
       userName,
       password,

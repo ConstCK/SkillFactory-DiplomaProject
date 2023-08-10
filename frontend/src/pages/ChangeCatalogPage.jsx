@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getUniversalData, changeCatalog } from "../api/dataService.js";
 import "../styles/ChangeCatalogPage.css";
 
 const ChangeCatalogPage = () => {
   const navigate = useNavigate();
-  const { state } = useLocation();
   const { type, id } = useParams();
   const [userName, setUserName] = useState(localStorage.getItem("user"));
   const [password, setPassword] = useState(localStorage.getItem("password"));

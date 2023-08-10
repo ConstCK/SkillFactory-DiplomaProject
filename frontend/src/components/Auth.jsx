@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/Auth.css";
-import resultContext from "../context/createContext.js";
+import serviceContext from "../context/createContext.js";
 
 const Auth = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isAuth, setIsAuth] = useContext(resultContext);
+  const { isAuth, setIsAuth } = useContext(serviceContext);
   const [currentLocation, setCurrentLocation] = useState(location.pathname);
 
   useEffect(() => {

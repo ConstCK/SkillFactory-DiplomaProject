@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import "../styles/MainInfo.css";
 import MainBlock from "./MainBlock.jsx";
-import resultContext from "../context/createContext.js";
 import MaintenanceBlock from "./MaintenanceBlock.jsx";
 import ComplaintBlock from "./ComplaintBlock.jsx";
 
@@ -10,8 +9,6 @@ const MainInfo = () => {
   const [currentGroup, setCurrentGroup] = useState(
     localStorage.getItem("group")
   );
-  const activeStyle = { background: "red", color: "azure" };
-  const passiveStyle = { background: "white", color: "black" };
   const mainRef = useRef();
   const maintenanceRef = useRef();
   const complaintRef = useRef();
@@ -22,18 +19,21 @@ const MainInfo = () => {
     complaintRef.current.className = "nav-btn passive";
     setCurrentDataType(1);
   };
+
   const handleMaintenanceInfo = () => {
     mainRef.current.className = "nav-btn passive";
     maintenanceRef.current.className = "nav-btn active";
     complaintRef.current.className = "nav-btn passive";
     setCurrentDataType(2);
   };
+
   const handleComplaintInfo = () => {
     mainRef.current.className = "nav-btn passive";
     maintenanceRef.current.className = "nav-btn passive";
     complaintRef.current.className = "nav-btn active";
     setCurrentDataType(3);
   };
+
   return (
     <div className="main-info">
       <div className="navigation-bar">

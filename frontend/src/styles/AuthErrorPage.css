@@ -35,6 +35,7 @@
 }
 
 @media (min-width: 767px) and (max-width: 991px) {
+
     .auth-error-title {
         margin: 60px;
         font-size: 2.5rem;
@@ -51,6 +52,7 @@
 }
 
 @media (min-width: 320px) and (max-width: 766px) {
+
     .auth-error-title {
         margin: 40px;
         font-size: 1.6rem;
@@ -64,4 +66,5 @@
         padding: 10px 40px;
         font-size: 1.3rem;
     }
+
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import "../styles/MainPage.css";
 import InfoPanel from "../components/InfoPanel.jsx";
 import SearchPanel from "../components/SearchPanel.jsx";
@@ -6,8 +6,7 @@ import resultContext from "../context/createContext";
 import { useLocation } from "react-router-dom";
 
 function MainPage() {
-  const location = useLocation();
-  const [isAuth, setIsAuth] = useContext(resultContext);  
+  const { isAuth, setIsAuth } = useContext(resultContext);
 
   useEffect(() => {
     setIsAuth(localStorage.getItem("user"));

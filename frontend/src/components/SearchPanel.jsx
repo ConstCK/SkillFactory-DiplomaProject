@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import "../styles/SearchPanel.css";
 import { getFilteredCars } from "../api/dataService.js";

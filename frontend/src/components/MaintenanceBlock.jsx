@@ -1,14 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/MaintenanceBlock.css";
 import {
   getAllCars,
+  getClientsCars,
+  getServiceCompaniesCars,
   getAllMaintenance,
   getClientsMaintenance,
   getServiceCompaniesMaintenance,
   getMaintenanceTypes,
   getAllServiceCompanies,
 } from "../api/dataService.js";
+import serviceContext from "../context/createContext.js";
 
 const MaintenanceBlock = ({ group }) => {
   const navigate = useNavigate();
@@ -23,6 +26,7 @@ const MaintenanceBlock = ({ group }) => {
   const [userName, setUserName] = useState(localStorage.getItem("user"));
   const [password, setPassword] = useState(localStorage.getItem("password"));
   const [userId, setuserId] = useState(localStorage.getItem("id"));
+  const { pageId, setPageId } = useContext(serviceContext);
 
   useEffect(() => {
     if (group === "3") {
@@ -43,9 +47,16 @@ const MaintenanceBlock = ({ group }) => {
         setCurrentData
       );
     }
-    getAllCars(setAllCars);
+    if (group === "3") {
+      getAllCars(setAllCars);
+    } else if (group === "1") {
+      getClientsCars(userName, password, userId, setAllCars);
+    } else if (group === "2") {
+      getServiceCompaniesCars(userName, password, setAllCars);
+    }
     getMaintenanceTypes(setAllMaintenanceTypes);
     getAllServiceCompanies(setAllServiceCompanies);
+    setPageId(2);
   }, []);
 
   const handleAddMaintenance = () => {
@@ -194,6 +205,17 @@ const MaintenanceBlock = ({ group }) => {
             );
           })}
         </tbody>
+        <tfoot>
+          <tr>
+            <th>Зав. № машины</th>
+            <th>Вид ТО</th>
+            <th>Дата проведения ТО</th>
+            <th>Наработка, м/час</th>
+            <th>№ заказ-наряда</th>
+            <th>дата заказ-наряда</th>
+            <th>Организация, проводившая ТО</th>
+          </tr>
+        </tfoot>
       </table>
       <button onClick={handleAddMaintenance} className="add-maintenance-btn">
         Добавить данные о ТО

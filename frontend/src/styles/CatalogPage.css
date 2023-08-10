@@ -12,7 +12,7 @@
 .catalog-table {
     font-size: 1.3rem;
     text-align: center;
-    width: 80vw;
+    width: 90%;
     table-layout: fixed;
     margin: 0 0 30px 20%;
 }
@@ -25,7 +25,7 @@
 .catalog-table th,
 .catalog-table td {
     border: 2px var(--color-1) solid;
-    padding: 4px;
+    padding: 10px;
     table-layout: auto;
 }
 
@@ -95,7 +95,7 @@
     .catalog-table th,
     .catalog-table td {
         border: 1px var(--color-1) solid;
-        padding: 2px;
+        padding: 6px;
     }
 
     .catalog-change-btn {
@@ -112,6 +112,7 @@
 }
 
 @media (min-width: 320px) and (max-width: 766px) {
+
     .catalog-table {
         font-size: 0.6rem;
         margin: 10px;
@@ -120,7 +121,7 @@
     .catalog-table th,
     .catalog-table td {
         border: 1px var(--color-1) solid;
-        padding: 2px;
+        padding: 4px;
     }
 
     .catalog-change-btn {
