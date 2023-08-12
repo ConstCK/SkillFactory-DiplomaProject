@@ -14,6 +14,10 @@
     color: black;
 }
 
+.contacts a:hover {
+    color: var(--color-2);
+}
+
 .icon {
     height: 50px;
     margin-left: 40px;

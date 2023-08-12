@@ -12,6 +12,7 @@ import {
   getSteeringAxleList,
 } from "../api/dataService";
 import serviceContext from "../context/createContext.js";
+import { initialCarsSortWay } from "../utils/constants.js";
 
 const MainBlock = ({ group }) => {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ const MainBlock = ({ group }) => {
   const [userName, setUserName] = useState(localStorage.getItem("user"));
   const [password, setPassword] = useState(localStorage.getItem("password"));
   const [userId, setuserId] = useState(localStorage.getItem("id"));
+  const [sortWay, setSortWay] = useState(initialCarsSortWay);
   const { pageId, setPageId } = useContext(serviceContext);
 
   useEffect(() => {
@@ -64,6 +66,7 @@ const MainBlock = ({ group }) => {
       transmissionRef.current.selected = true;
       drivingAxleRef.current.selected = true;
       steeringAxleRef.current.selected = true;
+      setSortWay(initialCarsSortWay);
     }
   };
 
@@ -79,6 +82,7 @@ const MainBlock = ({ group }) => {
       transmissionRef.current.selected = true;
       drivingAxleRef.current.selected = true;
       steeringAxleRef.current.selected = true;
+      setSortWay(initialCarsSortWay);
     }
   };
 
@@ -94,6 +98,7 @@ const MainBlock = ({ group }) => {
       engineRef.current.selected = true;
       drivingAxleRef.current.selected = true;
       steeringAxleRef.current.selected = true;
+      setSortWay(initialCarsSortWay);
     }
   };
 
@@ -109,6 +114,7 @@ const MainBlock = ({ group }) => {
       engineRef.current.selected = true;
       transmissionRef.current.selected = true;
       steeringAxleRef.current.selected = true;
+      setSortWay(initialCarsSortWay);
     }
   };
 
@@ -124,7 +130,48 @@ const MainBlock = ({ group }) => {
       engineRef.current.selected = true;
       transmissionRef.current.selected = true;
       drivingAxleRef.current.selected = true;
+      setSortWay(initialCarsSortWay);
     }
+  };
+
+  const handleDetailedSort = (e) => {
+    const field = e.target.value;
+    const result = [...currentData];
+    if (sortWay[field] === "▽" || sortWay[field] === "-") {
+      setSortWay({ ...initialCarsSortWay, [field]: "△" });
+    } else {
+      setSortWay({ ...initialCarsSortWay, [field]: "▽" });
+    }
+    result.sort((a, b) => {
+      if (a[field]["name"] < b[field]["name"]) {
+        return sortWay[field] == "△" ? 1 : -1;
+      }
+      if (a[field]["name"] > b[field]["name"]) {
+        return sortWay[field] == "△" ? -1 : 1;
+      }
+      return 0;
+    });
+    setCurrentData(result);
+  };
+
+  const handleSimpleSort = (e) => {
+    const field = e.target.value;
+    const result = [...currentData];
+    if (sortWay[field] === "▽" || sortWay[field] === "-") {
+      setSortWay({ ...initialCarsSortWay, [field]: "△" });
+    } else {
+      setSortWay({ ...initialCarsSortWay, [field]: "▽" });
+    }
+    result.sort((a, b) => {
+      if (a[field] < b[field]) {
+        return sortWay[field] == "△" ? 1 : -1;
+      }
+      if (a[field] > b[field]) {
+        return sortWay[field] == "△" ? -1 : 1;
+      }
+      return 0;
+    });
+    setCurrentData(result);
   };
 
   return (
@@ -132,7 +179,7 @@ const MainBlock = ({ group }) => {
       <table className="main-result-table">
         <thead>
           <tr>
-            <th style={{ width: "250px" }}>Модель техники</th>
+            <th>Модель техники</th>
             <th>Зав. № машины</th>
             <th>Модель двигателя</th>
             <th>Зав. № двигателя</th>
@@ -151,6 +198,89 @@ const MainBlock = ({ group }) => {
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>
+              <button onClick={handleDetailedSort} value="vehicle_model_info">
+                {sortWay["vehicle_model_info"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleSimpleSort} value="car_id">
+                {sortWay["car_id"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleDetailedSort} value="engine_model_info">
+                {sortWay["engine_model_info"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleSimpleSort} value="engine_id">
+                {sortWay["engine_id"]}
+              </button>
+            </td>
+            <td>
+              <button
+                onClick={handleDetailedSort}
+                value="transmission_model_info"
+              >
+                {sortWay["transmission_model_info"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleSimpleSort} value="transmission_id">
+                {sortWay["transmission_id"]}
+              </button>
+            </td>
+            <td>
+              <button
+                onClick={handleDetailedSort}
+                value="driving_axle_model_info"
+              >
+                {sortWay["driving_axle_model_info"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleSimpleSort} value="driving_axle_id">
+                {sortWay["driving_axle_id"]}
+              </button>
+            </td>
+            <td>
+              <button
+                onClick={handleDetailedSort}
+                value="steering_axle_model_info"
+              >
+                {sortWay["steering_axle_model_info"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleSimpleSort} value="steering_axle_id">
+                {sortWay["steering_axle_id"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleSimpleSort} value="discharge_date">
+                {sortWay["discharge_date"]}
+              </button>
+            </td>
+            <td className="empty-cell"></td>
+            <td>
+              <button onClick={handleSimpleSort} value="receiver">
+                {sortWay["receiver"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleSimpleSort} value="delivery_address">
+                {sortWay["delivery_address"]}
+              </button>
+            </td>
+            <td className="empty-cell"></td>
+            <td>
+              <button onClick={handleDetailedSort} value="service_company_info">
+                {sortWay["service_company_info"]}
+              </button>
+            </td>
+          </tr>
           <tr>
             <td>
               <select

@@ -16,6 +16,19 @@
     border: 2px solid var(--color-1);
 }
 
+.complaint-result-table button {
+    padding: 3px;
+    color: var(--color-1);
+    background-color: var(--color-3);
+    width: 60px;
+    border: 2px solid;
+    border-radius: 40% 0 0 0;
+}
+
+.complaint-result-table button:focus {
+    color: var(--color-2);
+}
+
 .empty-cell {
     background-color: var(--color-1);
 }

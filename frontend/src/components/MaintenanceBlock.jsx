@@ -12,6 +12,7 @@ import {
   getAllServiceCompanies,
 } from "../api/dataService.js";
 import serviceContext from "../context/createContext.js";
+import { initialMaintenanceSortWay } from "../utils/constants.js";
 
 const MaintenanceBlock = ({ group }) => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const MaintenanceBlock = ({ group }) => {
   const [userName, setUserName] = useState(localStorage.getItem("user"));
   const [password, setPassword] = useState(localStorage.getItem("password"));
   const [userId, setuserId] = useState(localStorage.getItem("id"));
+  const [sortWay, setSortWay] = useState(initialMaintenanceSortWay);
   const { pageId, setPageId } = useContext(serviceContext);
 
   useEffect(() => {
@@ -106,6 +108,46 @@ const MaintenanceBlock = ({ group }) => {
     maintenanceTypesRef.current.selected = true;
   };
 
+  const handleDetailedSort = (e) => {
+    const field = e.target.value;
+    const result = [...currentData];
+    if (sortWay[field] === "▽" || sortWay[field] === "-") {
+      setSortWay({ ...initialMaintenanceSortWay, [field]: "△" });
+    } else {
+      setSortWay({ ...initialMaintenanceSortWay, [field]: "▽" });
+    }
+    result.sort((a, b) => {
+      if (a[field]["name"] < b[field]["name"]) {
+        return sortWay[field] == "△" ? 1 : -1;
+      }
+      if (a[field]["name"] > b[field]["name"]) {
+        return sortWay[field] == "△" ? -1 : 1;
+      }
+      return 0;
+    });
+    setCurrentData(result);
+  };
+
+  const handleSimpleSort = (e) => {
+    const field = e.target.value;
+    const result = [...currentData];
+    if (sortWay[field] === "▽" || sortWay[field] === "-") {
+      setSortWay({ ...initialMaintenanceSortWay, [field]: "△" });
+    } else {
+      setSortWay({ ...initialMaintenanceSortWay, [field]: "▽" });
+    }
+    result.sort((a, b) => {
+      if (a[field] < b[field]) {
+        return sortWay[field] == "△" ? 1 : -1;
+      }
+      if (a[field] > b[field]) {
+        return sortWay[field] == "△" ? -1 : 1;
+      }
+      return 0;
+    });
+    setCurrentData(result);
+  };
+
   return (
     <div className="maintenance-info-container">
       <table className="maintenance-result-table">
@@ -121,6 +163,46 @@ const MaintenanceBlock = ({ group }) => {
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>
+              <button onClick={handleSimpleSort} value="car_id_details">
+                {sortWay["car_id_details"]}
+              </button>
+            </td>
+            <td>
+              <button
+                onClick={handleDetailedSort}
+                value="maintenance_type_info"
+              >
+                {sortWay["maintenance_type_info"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleSimpleSort} value="maintenance_date">
+                {sortWay["maintenance_date"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleSimpleSort} value="running_time">
+                {sortWay["running_time"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleSimpleSort} value="order_id">
+                {sortWay["order_id"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleSimpleSort} value="order_date">
+                {sortWay["order_date"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleDetailedSort} value="service_company_info">
+                {sortWay["service_company_info"]}
+              </button>
+            </td>
+          </tr>
           <tr>
             <td>
               <select

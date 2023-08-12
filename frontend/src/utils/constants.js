@@ -30,6 +30,46 @@ const GROUPS = {
   3: "Менеджер",
 };
 
+const initialCarsSortWay = {
+  car_id: "-",
+  engine_id: "-",
+  transmission_id: "-",
+  driving_axle_id: "-",
+  steering_axle_id: "-",
+  delivery_contract: "-",
+  discharge_date: "-",
+  receiver: "-",
+  delivery_address: "-",
+  delivery_address: "-",
+  vehicle_model_info: "-",
+  engine_model_info: "-",
+  transmission_model_info: "-",
+  driving_axle_model_info: "-",
+  steering_axle_model_info: "-",
+  service_company_info: "-",
+};
+
+const initialMaintenanceSortWay = {
+  car_id_details: "-",
+  service_company_info: "-",
+  maintenance_type_info: "-",
+  maintenance_date: "-",
+  running_time: "-",
+  order_id: "-",
+  order_date: "-",
+};
+
+const initialComplaintSortWay = {
+  car_id_details: "-",
+  service_company_info: "-",
+  breakage_type_info: "-",
+  repairing_way_info: "-",
+  breakage_date: "-",
+  running_time: "-",
+  repair_date: "-",
+  down_time: "-",
+};
+
 export {
   BASE_URL,
   SWAGGER_URL,
@@ -56,4 +96,7 @@ export {
   STEERING_AXLES_URL,
   ALL_CLIENTS_URL,
   GROUPS,
+  initialCarsSortWay,
+  initialMaintenanceSortWay,
+  initialComplaintSortWay,
 };

@@ -9,7 +9,7 @@
 Запускаем сервер из каталога project (python manage.py runserver)
 Доступ к DRF API Root http://127.0.0.1:8000/api/
 
-Открываем FrontEnd директорию в IDE (рекомендуется при помощи VSCode).
+Открываем frontend директорию в IDE (рекомендуется при помощи VSCode).
 В терминале устанавливаем зависимости (npm i)
 Запускаем наш проект (npm start)
 

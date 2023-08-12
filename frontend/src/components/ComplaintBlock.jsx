@@ -13,6 +13,7 @@ import {
   getAllCars,
 } from "../api/dataService.js";
 import serviceContext from "../context/createContext.js";
+import { initialComplaintSortWay } from "../utils/constants.js";
 
 const ComplaintBlock = ({ group }) => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const ComplaintBlock = ({ group }) => {
   const [userName, setUserName] = useState(localStorage.getItem("user"));
   const [password, setPassword] = useState(localStorage.getItem("password"));
   const [userId, setuserId] = useState(localStorage.getItem("id"));
+  const [sortWay, setSortWay] = useState(initialComplaintSortWay);
   const { pageId, setPageId } = useContext(serviceContext);
 
   useEffect(() => {
@@ -129,6 +131,46 @@ const ComplaintBlock = ({ group }) => {
     carRef.current.selected = true;
   };
 
+  const handleDetailedSort = (e) => {
+    const field = e.target.value;
+    const result = [...currentData];
+    if (sortWay[field] === "▽" || sortWay[field] === "-") {
+      setSortWay({ ...initialComplaintSortWay, [field]: "△" });
+    } else {
+      setSortWay({ ...initialComplaintSortWay, [field]: "▽" });
+    }
+    result.sort((a, b) => {
+      if (a[field]["name"] < b[field]["name"]) {
+        return sortWay[field] == "△" ? 1 : -1;
+      }
+      if (a[field]["name"] > b[field]["name"]) {
+        return sortWay[field] == "△" ? -1 : 1;
+      }
+      return 0;
+    });
+    setCurrentData(result);
+  };
+
+  const handleSimpleSort = (e) => {
+    const field = e.target.value;
+    const result = [...currentData];
+    if (sortWay[field] === "▽" || sortWay[field] === "-") {
+      setSortWay({ ...initialComplaintSortWay, [field]: "△" });
+    } else {
+      setSortWay({ ...initialComplaintSortWay, [field]: "▽" });
+    }
+    result.sort((a, b) => {
+      if (a[field] < b[field]) {
+        return sortWay[field] == "△" ? 1 : -1;
+      }
+      if (a[field] > b[field]) {
+        return sortWay[field] == "△" ? -1 : 1;
+      }
+      return 0;
+    });
+    setCurrentData(result);
+  };
+
   return (
     <div className="complaint-info-container">
       <table className="complaint-result-table">
@@ -147,6 +189,46 @@ const ComplaintBlock = ({ group }) => {
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>
+              <button onClick={handleSimpleSort} value="car_id_details">
+                {sortWay["car_id_details"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleSimpleSort} value="breakage_date">
+                {sortWay["breakage_date"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleSimpleSort} value="running_time">
+                {sortWay["running_time"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleDetailedSort} value="breakage_type_info">
+                {sortWay["breakage_type_info"]}
+              </button>
+            </td>
+            <td className="empty-cell"></td>
+            <td className="empty-cell"></td>
+            <td className="empty-cell"></td>
+            <td>
+              <button onClick={handleSimpleSort} value="repair_date">
+                {sortWay["repair_date"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleDetailedSort} value="service_company_info">
+                {sortWay["service_company_info"]}
+              </button>
+            </td>
+            <td>
+              <button onClick={handleSimpleSort} value="down_time">
+                {sortWay["down_time"]}
+              </button>
+            </td>
+          </tr>
           <tr>
             <td>
               <select
